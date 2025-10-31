@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>قانون اساسی متد NAS™ - تاپینگ کوریر</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #0b0b0f 0%, #1a1a2e 100%);
+      color: #fff;
+      font-family: 'Vazirmatn', sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 20px;
+    }
+    .lang-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background: rgba(212,175,55,0.2);
+      border: 2px solid #d4af37;
+      border-radius: 30px;
+      padding: 10px 20px;
+      color: #d4af37;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .lang-toggle:hover {
+      background: rgba(212,175,55,0.4);
+      transform: scale(1.05);
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, #121218 0%, #1a1a24 100%);
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 50px rgba(212,175,55,0.3);
+    }
+    h1 {
+      color: #d4af37;
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(212,175,55,0.5);
+    }
+    .subtitle {
+      text-align: center;
+      color: #aaa;
+      font-size: 16px;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+    .toc {
+      background: rgba(212,175,55,0.1);
+      border-right: 4px solid #d4af37;
+      padding: 20px 30px;
+      margin: 30px 0;
+      border-radius: 10px;
+    }
+    .toc h3 {
+      color: #d4af37;
+      margin-top: 0;
+      font-size: 18px;
+    }
+    .toc ul {
+      list-style: none;
+      padding: 0;
+    }
+    .toc li {
+      margin: 8px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 5px;
+      border-radius: 5px;
+    }
+    .toc li:hover {
+      background: rgba(212,175,55,0.2);
+      padding-right: 15px;
+    }
+    .toc li::before {
+      content: "◄ ";
+      color: #d4af37;
+      margin-left: 8px;
+    }
+    h2 {
+      color: #d4af37;
+      font-size: 22px;
+      border-bottom: 2px solid #d4af37;
+      padding-bottom: 8px;
+      margin-top: 50px;
+      margin-bottom: 20px;
+    }
+    h3 {
+      color: #e6c968;
+      font-size: 18px;
+      margin-top: 30px;
+    }
+    p {
+      text-align: justify;
+      margin: 16px 0;
+      font-size: 15px;
+      line-height: 2;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0;
+    }
+    ul li {
+      margin: 12px 0;
+      padding-right: 25px;
+      position: relative;
+    }
+    ul li::before {
+      content: "◆";
+      color: #d4af37;
+      position: absolute;
+      right: 0;
+      font-size: 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      background: rgba(212,175,55,0.05);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th {
+      background: rgba(212,175,55,0.3);
+      color: #fff;
+      padding: 15px;
+      text-align: right;
+      font-weight: 600;
+    }
+    td {
+      padding: 15px;
+      border-bottom: 1px solid rgba(212,175,55,0.1);
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .info-box {
+      background: rgba(100,150,255,0.1);
+      border-right: 4px solid #6496ff;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+    .warning-box {
+      background: rgba(255,100,100,0.1);
+      border-right: 4px solid #ff6464;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+    .signature-section {
+      background: rgba(212,175,55,0.1);
+      padding: 30px;
+      margin: 40px 0;
+      border-radius: 15px;
+      border: 2px solid #d4af37;
+    }
+    .form-group {
+      margin: 20px 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #d4af37;
+      font-weight: 600;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid #d4af37;
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #e6c968;
+      box-shadow: 0 0 10px rgba(212,175,55,0.3);
+    }
+    .checkbox-group {
+      margin: 15px 0;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin-left: 10px;
+    }
+    .btn {
+      background: linear-gradient(135deg, #d4af37 0%, #f0d461 100%);
+      color: #0b0b0f;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(212,175,55,0.5);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .download-btn {
+      background: linear-gradient(135deg, #6496ff 0%, #84b6ff 100%);
+      color: #fff;
+      margin-right: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(212,175,55,0.3);
+      color: #888;
+      font-size: 13px;
+    }
+    .english {
+      display: none;
+      direction: ltr;
+      text-align: left;
+    }
+    .english h2, .english h3 {
+      text-align: left;
+    }
+    .english .toc li::before {
+      content: "► ";
+      margin-right: 8px;
+      margin-left: 0;
+    }
+    .english ul li::before {
+      right: auto;
+      left: 0;
+    }
+    .english ul li {
+      padding-right: 0;
+      padding-left: 25px;
+    }
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      .lang-toggle {
+        top: 10px;
+        left: 10px;
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="lang-toggle" onclick="toggleLanguage()">English</button>
+  
+  <div class="container">
+    <!-- PERSIAN VERSION -->
+    <div id="persian" class="persian">
+      <h1>قانون اساسی متد NAS™</h1>
+      <div class="subtitle">شرکت بین‌المللی تاپینگ کوریر</div>
+      <p style="text-align:center; color:#d4af37; font-weight:600;">Network | AI | Secure & Swift</p>
+
+      <div class="toc">
+        <h3>فهرست مطالب</h3>
+        <ul>
+          <li onclick="scrollToSection('article1')">ماده ۱: مقدمه و رسالت</li>
+          <li onclick="scrollToSection('article2')">ماده ۲: اصول بنیادین متد NAS</li>
+          <li onclick="scrollToSection('article3')">ماده ۳: تعهدات نمایندگان و هاب‌ها</li>
+          <li onclick="scrollToSection('article4')">ماده ۴: سیستم نظارت و کنترل کیفیت</li>
+          <li onclick="scrollToSection('article5')">ماده ۵: سیاست برند و انحصار</li>
+          <li onclick="scrollToSection('article6')">ماده ۶: ساختار مالی و تجاری</li>
+          <li onclick="scrollToSection('article7')">ماده ۷: امنیت داده و حریم خصوصی</li>
+          <li onclick="scrollToSection('article8')">ماده ۸: آکادمی تاپینگ و آموزش</li>
+          <li onclick="scrollToSection('article9')">ماده ۹: حل اختلاف و مسائل حقوقی</li>
+          <li onclick="scrollToSection('article10')">ماده ۱۰: امضا و پذیرش قانونی</li>
+        </ul>
+      </div>
+
+      <h2 id="article1">ماده ۱: مقدمه و رسالت</h2>
+      <p>شرکت تاپینگ کوریر بر اساس متد NAS™ (که نماد شبکه‌سازی هوشمند، به‌کارگیری هوش مصنوعی، تضمین امنیت و سرعت است) بنیان گذاشته شده و به عنوان یک شرکت بین‌المللی در حوزه لجستیک و فریت فورواردینگ، متعهد به رعایت بالاترین استانداردهای جهانی است.</p>
+
+      <h2 id="article2">ماده ۲: اصول بنیادین متد NAS</h2>
+      <ul>
+        <li><b>شبکه‌سازی هوشمند (Network):</b> ایجاد شبکه گسترده و یکپارچه از نمایندگان در سراسر جهان که همگی بر اساس اصول NAS عمل می‌کنند. این شبکه باید مانند یک خانواده جهانی، با همدلی و هماهنگی کار کند.</li>
+        <li><b>هوش مصنوعی (AI):</b> استفاده از فناوری‌های پیشرفته هوش مصنوعی برای بهینه‌سازی مسیرها، افزایش دقت و سرعت خدمات و ارائه تجربه برتر به مشتریان.</li>
+        <li><b>امنیت و سرعت (Secure & Swift):</b> تضمین امنیت امانات مشتریان و ارائه خدمات با بالاترین سرعت ممکن برای حفظ اعتماد و اعتبار بین‌المللی.</li>
+      </ul>
+
+      <h2 id="article3">ماده ۳: تعهدات نمایندگان و هاب‌ها</h2>
+      <h3>۳-۱. الزامات عمومی</h3>
+      <ul>
+        <li>رعایت کامل اصول NAS در تمامی فعالیت‌ها</li>
+        <li>شرکت الزامی در دوره‌های آموزشی Topping Academy</li>
+        <li>ارائه گزارش عملکرد ماهانه تا پایان روز پنجم ماه بعد</li>
+        <li>شرکت در ارزیابی‌های سه‌ماهه فنی و اخلاقی</li>
+      </ul>
+
+      <h3>۳-۲. معیارهای عملکرد</h3>
+      <table>
+        <tr>
+          <th>شاخص</th>
+          <th>حداقل استاندارد</th>
+          <th>هدف عالی</th>
+        </tr>
+        <tr>
+          <td>رضایت مشتری</td>
+          <td>۸۵٪</td>
+          <td>۹۵٪</td>
+        </tr>
+        <tr>
+          <td>تحویل به‌موقع</td>
+          <td>۹۰٪</td>
+          <td>۹۸٪</td>
+        </tr>
+        <tr>
+          <td>پاسخگویی (۲۴ ساعت)</td>
+          <td>۹۵٪</td>
+          <td>۹۹٪</td>
+        </tr>
+        <tr>
+          <td>دقت اطلاعات</td>
+          <td>۹۸٪</td>
+          <td>۱۰۰٪</td>
+        </tr>
+      </table>
+
+      <div class="warning-box">
+        <strong>⚠ هشدار:</strong> عدم رعایت حداقل استانداردها برای دو دوره متوالی منجر به تعلیق موقت و سه دوره متوالی منجر به لغو مجوز همکاری خواهد شد.
+      </div>
+
+      <h2 id="article4">ماده ۴: سیستم نظارت و کنترل کیفیت</h2>
+      <ul>
+        <li><b>AI Monitoring Center:</b> نظارت ۲۴/۷ بر عملکرد در زمینه سرعت، کیفیت و رضایت مشتری</li>
+        <li><b>Smart Contract System:</b> قراردادهای هوشمند برای تضمین شفافیت و امنیت</li>
+        <li><b>Global Compliance Engine:</b> تطبیق خودکار با قوانین صادرات، واردات و حمل‌ونقل هر کشور</li>
+        <li><b>Quality Assurance Team:</b> تیم تضمین کیفیت برای بازرسی‌های ناگهانی و دوره‌ای</li>
+      </ul>
+
+      <h2 id="article5">ماده ۵: سیاست برند و انحصار</h2>
+      <ul>
+        <li>هر کشور فقط <strong>یک هاب رسمی NAS™</strong> خواهد داشت</li>
+        <li>هر هاب می‌تواند حداکثر <strong>۱۰ نماینده محلی</strong> دارای لایسنس داشته باشد</li>
+        <li>استفاده از برند، لوگو یا دامنه‌های رسمی بدون مجوز کتبی <strong>ممنوع</strong> است</li>
+        <li>تخطی از سیاست برند منجر به فسخ قرارداد و پیگرد قانونی خواهد شد</li>
+      </ul>
+
+      <div class="info-box">
+        <strong>ℹ توجه:</strong> درخواست مجوز استفاده از برند باید حداقل ۳۰ روز قبل از استفاده به دفتر مرکزی ارسال شود.
+      </div>
+
+      <h2 id="article6">ماده ۶: ساختار مالی و تجاری</h2>
+      <h3>۶-۱. کمیسیون و پورسانت</h3>
+      <table>
+        <tr>
+          <th>نوع خدمت</th>
+          <th>کمیسیون نماینده</th>
+          <th>سهم هاب</th>
+          <th>سهم شرکت مادر</th>
+        </tr>
+        <tr>
+          <td>حمل هوایی</td>
+          <td>۱۵٪</td>
+          <td>۱۰٪</td>
+          <td>۷۵٪</td>
+        </tr>
+        <tr>
+          <td>حمل دریایی</td>
+          <td>۱۲٪</td>
+          <td>۸٪</td>
+          <td>۸۰٪</td>
+        </tr>
+        <tr>
+          <td>حمل زمینی</td>
+          <td>۱۸٪</td>
+          <td>۱۲٪</td>
+          <td>۷۰٪</td>
+        </tr>
+        <tr>
+          <td>خدمات گمرکی</td>
+          <td>۲۰٪</td>
+          <td>۱۰٪</td>
+          <td>۷۰٪</td>
+        </tr>
+      </table>
+
+      <h3>۶-۲. مسئولیت مالی</h3>
+      <ul>
+        <li>بیمه مسئولیت حداقل ۵۰۰،۰۰۰ دلار برای هاب‌ها الزامی است</li>
+        <li>بیمه محموله برای تمامی مرسولات بالای ۱۰،۰۰۰ دلار الزامی است</li>
+        <li>مسئولیت خسارت ناشی از تقصیر نماینده بر عهده نماینده است</li>
+        <li>تسویه حساب ماهانه تا روز ۱۵ ماه بعد انجام می‌شود</li>
+      </ul>
+
+      <h3>۶-۳. سیاست قیمت‌گذاری</h3>
+      <p>قیمت‌گذاری باید بر اساس استانداردهای منطقه‌ای و رقابتی بوده و تخفیف‌های بیش از ۲۰٪ نیاز به تأیید دفتر مرکزی دارد.</p>
+
+      <h2 id="article7">ماده ۷: امنیت داده و حریم خصوصی</h2>
+      <h3>۷-۱. انطباق با GDPR و استانداردهای بین‌المللی</h3>
+      <ul>
+        <li>رعایت کامل مقررات GDPR اروپا و قوانین حریم خصوصی هر کشور</li>
+        <li>رمزنگاری داده‌های مشتریان با استاندارد AES-256</li>
+        <li>حق دسترسی، اصلاح و حذف داده‌ها برای مشتریان</li>
+        <li>نگهداری داده‌ها حداکثر ۷ سال پس از آخرین تراکنش</li>
+      </ul>
+
+      <h3>۷-۲. پروتکل‌های امنیتی هوش مصنوعی</h3>
+      <ul>
+        <li>عدم استفاده از داده‌های شخصی برای آموزش مدل‌های AI بدون رضایت</li>
+        <li>ممیزی منظم الگوریتم‌ها برای جلوگیری از تبعیض</li>
+        <li>شفافیت در تصمیم‌گیری‌های خودکار</li>
+      </ul>
+
+      <h3>۷-۳. محرمانگی اطلاعات تجاری</h3>
+      <div class="warning-box">
+        <strong>محرمانه:</strong> افشای اطلاعات تجاری شرکت، مشتریان یا رقبا ممنوع بوده و پیگرد قانونی دارد. تعهدنامه عدم افشا (NDA) برای تمامی نمایندگان الزامی است.
+      </div>
+
+      <h2 id="article8">ماده ۸: آکادمی تاپینگ و آموزش</h2>
+      <h3>۸-۱. دوره‌های آموزشی الزامی</h3>
+      <table>
+        <tr>
+          <th>دوره</th>
+          <th>مدت زمان</th>
+          <th>دوره تکرار</th>
+        </tr>
+        <tr>
+          <td>اصول NAS و فرهنگ سازمانی</td>
+          <td>۲ روز</td>
+          <td>فقط ورود</td>
+        </tr>
+        <tr>
+          <td>سیستم‌های لجستیک و AI</td>
+          <td>۳ روز</td>
+          <td>سالانه</td>
+        </tr>
+        <tr>
+          <td>امنیت و حریم خصوصی</td>
+          <td>۱ روز</td>
+          <td>سالانه</td>
+        </tr>
+        <tr>
+          <td>خدمات مشتری و ارتباطات</td>
+          <td>۲ روز</td>
+          <td>هر ۲ سال</td>
+        </tr>
+      </table>
+
+      <h3>۸-۲. گواهینامه و اعتبارسنجی</h3>
+      <ul>
+        <li>گواهینامه اولیه با اعتبار ۳ ساله صادر می‌شود</li>
+        <li>تمدید گواهینامه نیازمند گذراندن موفق دوره‌های تکراری است</li>
+        <li>حداقل نمره قبولی: ۸۰٪</li>
+      </ul>
+
+      <h2 id="article9">ماده ۹: حل اختلاف و مسائل حقوقی</h2>
+      <h3>۹-۱. مکانیزم حل اختلاف</h3>
+      <p><strong>مرحله ۱:</strong> گفتگوی مستقیم بین طرفین (حداکثر ۱۵ روز)</p>
+      <p><strong>مرحله ۲:</strong> میانجیگری توسط کمیته داخلی شرکت (حداکثر ۳۰ روز)</p>
+      <p><strong>مرحله ۳:</strong> داوری بین‌المللی توسط ICC (اتاق بازرگانی بین‌المللی)</p>
+
+      <h3>۹-۲. قوانین حاکم</h3>
+      <p>این قرارداد تابع قوانین کشور <strong>امارات متحده عربی</strong> (مرکز اصلی شرکت) بوده و دادگاه‌های دبی صلاحیت رسیدگی را دارند.</p>
+
+      <h3>۹-۳. شرایط فسخ قرارداد</h3>
+      <ul>
+        <li><strong>فسخ توافقی:</strong> با اطلاع کتبی ۹۰ روزه و تسویه تمامی بدهی‌ها</li>
+        <li><strong>فسخ یک‌طرفه توسط شرکت:</strong> در صورت نقض جدی قرارداد با اطلاع ۳۰ روزه</li>
+        <li><strong>فسخ فوری:</strong> در موارد کلاهبرداری، افشای اطلاعات یا آسیب جدی به برند</li>
+      </ul>
+
+      <h3>۹-۴. پیامدهای فسخ</h3>
+      <p>پس از فسخ قرارداد، نماینده موظف است:</p>
+      <ul>
+        <li>تحویل تمامی مرسولات در دست اقدام</li>
+        <li>حذف تمامی محتواهای مرتبط با برند از فضای مجازی</li>
+        <li>بازگرداندن تمامی مدارک، تجهیزات و دسترسی‌های دریافتی</li>
+        <li>رعایت تعهد عدم رقابت برای ۱۲ ماه در همان منطقه جغرافیایی</li>
+      </ul>
+
+      <h2 id="article10">ماده ۱۰: امضا و پذیرش قانونی</h2>
+      <p>با امضای این سند، نماینده اعلام می‌دارد که:</p>
+      <ul>
+        <li>تمامی مواد این قانون اساسی را به دقت مطالعه کرده است</li>
+        <li>مفاد و تعهدات خود را به طور کامل درک نموده است</li>
+        <li>متعهد به رعایت کامل تمامی بندهای این قانون است</li>
+        <li>پیامدهای قانونی نقض این تعهدات را می‌پذیرد</li>
+      </ul>
+
+      <div class="signature-section">
+        <h3 style="color: #d4af37; text-align: center; margin-top: 0;">فرم امضای دیجیتال</h3>
+        
+        <div class="form-group">
+          <label>نام و نام خانوادگی / نام شرکت *</label>
+          <input type="text" id="fullName" required placeholder="نام کامل خود را وارد کنید">
+        </div>
+
+        <div class="form-group">
+          <label>کشور / منطقه فعالیت *</label>
+          <input type="text" id="country" required placeholder="مثال: ایران - تهران">
+        </div>
+
+        <div class="form-group">
+          <label>شماره تماس *</label>
+          <input type="tel" id="phone" required placeholder="+98 912 345 6789">
+        </div>
+
+        <div class="form-group">
+          <label>ایمیل *</label>
+          <input type="email" id="email" required placeholder="your.email@example.com">
+        </div>
+
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" id="confirm1" required>
+            <span>تمامی مواد قانون اساسی NAS™ را مطالعه کرده‌ام</span>
+          </label>
+          <label>
+            <input type="checkbox" id="confirm2" required>
+            <span>متعهد به رعایت کامل اصول Network، AI، Secure & Swift هستم</span>
+          </label>
+          <label>
+            <input type="checkbox" id="confirm3" required>
+            <span>تعهدات مالی، امنیتی و حقوقی را می‌پذیرم</span>
+          </label>
+          <label>
+            <input type="checkbox" id="confirm4" required>
+            <span>از پیامدهای قانونی نقض این قانون آگاه هستم</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>امضای دیجیتال (نام کامل به عنوان امضا) *</label>
+          <input type="text" id="signature" required placeholder="نام کامل خود را به عنوان امضا وارد کنید">
+        </div>
+
+        <div class="form-group">
+          <label>تاریخ</label>
+          <input type="text" id="date" readonly value="">
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <button class="btn download-btn" onclick="downloadPDF()">📥 دانلود PDF</button>
+          <button class="btn" onclick="submitForm()" id="submitBtn">✓ ثبت و تأیید نهایی</button>
+        </div>
+
+        <p style="text-align: center; color: #888; font-size: 13px; margin-top: 20px;">
+          با کلیک بر روی "ثبت و تأیید نهایی" این سند به صورت قانونی معتبر خواهد بود
+        </p>
+      </div>
+
+      <footer>
+        <p>© 2025 Topping Courier Inc. – All Rights Reserved</p>
+        <p>NAS™ Method Charter | Version 2.0</p>
+        <p>📧 legal@toppingcourier.com | 🌐 www.toppingcourier.com</p>
+      </footer>
+    </div>
+
+    <!-- ENGLISH VERSION -->
+    <div id="english" class="english">
+      <h1>NAS™ Method Constitutional Charter</h1>
+      <div class="subtitle">Topping Courier International Company</div>
+      <p style="text-align:center; color:#d4af37; font-weight:600;">Network | AI | Secure & Swift</p>
+
+      <div class="toc">
+        <h3>Table of Contents</h3>
+        <ul>
+          <li onclick="scrollToSection('en-article1')">Article 1: Introduction & Mission</li>
+          <li onclick="scrollToSection('en-article2')">Article 2: Fundamental Principles of NAS Method</li>
+          <li onclick="scrollToSection('en-article3')">Article 3: Agent & Hub Obligations</li>
+          <li onclick="scrollToSection('en-article4')">Article 4: Monitoring & Quality Control System</li>
+          <li onclick="scrollToSection('en-article5')">Article 5: Brand Policy & Exclusivity</li>
+          <li onclick="scrollToSection('en-article6')">Article 6: Financial & Commercial Structure</li>
+          <li onclick="scrollToSection('en-article7')">Article 7: Data Security & Privacy</li>
+          <li onclick="scrollToSection('en-article8')">Article 8: Topping Academy & Training</li>
+          <li onclick="scrollToSection('en-article9')">Article 9: Dispute Resolution & Legal Matters</li>
+          <li onclick="scrollToSection('en-article10')">Article 10: Signature & Legal Acceptance</li>
+        </ul>
+      </div>
+
+      <h2 id="en-article1">Article 1: Introduction & Mission</h2>
+      <p>Topping Courier is founded on the NAS™ Method (symbolizing Intelligent Networking, Artificial Intelligence Implementation, Security Assurance, and Speed), and as an international company in the logistics and freight forwarding sector, is committed to maintaining the highest global standards.</p>
+
+      <h2 id="en-article2">Article 2: Fundamental Principles of NAS Method</h2>
+      <ul>
+        <li><b>Intelligent Networking:</b> Creating an extensive and integrated network of agents worldwide who all operate based on NAS principles. This network should function like a global family, working with empathy and coordination.</li>
+        <li><b>Artificial Intelligence:</b> Utilizing advanced AI technologies to optimize routes, increase accuracy and speed of services, and provide superior customer experience.</li>
+        <li><b>Secure & Swift:</b> Ensuring customer shipment security and delivering services at the highest possible speed to maintain international trust and credibility.</li>
+      </ul>
+
+      <h2 id="en-article3">Article 3: Agent & Hub Obligations</h2>
+      <h3>3-1. General Requirements</h3>
+      <ul>
+        <li>Complete adherence to NAS principles in all activities</li>
+        <li>Mandatory participation in Topping Academy training courses</li>
+        <li>Monthly performance report submission by the 5th of the following month</li>
+        <li>Participation in quarterly technical and ethical evaluations</li>
+      </ul>
+
+      <h3>3-2. Performance Metrics</h3>
+      <table>
+        <tr>
+          <th>Metric</th>
+          <th>Minimum Standard</th>
+          <th>Excellence Target</th>
+        </tr>
+        <tr>
+          <td>Customer Satisfaction</td>
+          <td>85%</td>
+          <td>95%</td>
+        </tr>
+        <tr>
+          <td>On-Time Delivery</td>
+          <td>90%</td>
+          <td>98%</td>
+        </tr>
+        <tr>
+          <td>Response Time (24h)</td>
+          <td>95%</td>
+          <td>99%</td>
+        </tr>
+        <tr>
+          <td>Information Accuracy</td>
+          <td>98%</td>
+          <td>100%</td>
+        </tr>
+      </table>
+
+      <div class="warning-box">
+        <strong>⚠ Warning:</strong> Failure to meet minimum standards for two consecutive periods results in temporary suspension, and three consecutive periods leads to license revocation.
+      </div>
+
+      <h2 id="en-article4">Article 4: Monitoring & Quality Control System</h2>
+      <ul>
+        <li><b>AI Monitoring Center:</b> 24/7 monitoring of performance in speed, quality, and customer satisfaction</li>
+        <li><b>Smart Contract System:</b> Smart contracts to ensure transparency and security</li>
+        <li><b>Global Compliance Engine:</b> Automatic compliance with export, import, and transportation laws of each country</li>
+        <li><b>Quality Assurance Team:</b> Quality assurance team for surprise and periodic inspections</li>
+      </ul>
+
+      <h2 id="en-article5">Article 5: Brand Policy & Exclusivity</h2>
+      <ul>
+        <li>Each country will have only <strong>one official NAS™ hub</strong></li>
+        <li>Each hub can have a maximum of <strong>10 licensed local agents</strong></li>
+        <li>Use of brand, logo, or official domains without written permission is <strong>prohibited</strong></li>
+        <li>Violation of brand policy will result in contract termination and legal action</li>
+      </ul>
+
+      <div class="info-box">
+        <strong>ℹ Note:</strong> Brand usage permission requests must be submitted to headquarters at least 30 days before use.
+      </div>
+
+      <h2 id="en-article6">Article 6: Financial & Commercial Structure</h2>
+      <h3>6-1. Commission & Fees</h3>
+      <table>
+        <tr>
+          <th>Service Type</th>
+          <th>Agent Commission</th>
+          <th>Hub Share</th>
+          <th>Parent Company Share</th>
+        </tr>
+        <tr>
+          <td>Air Freight</td>
+          <td>15%</td>
+          <td>10%</td>
+          <td>75%</td>
+        </tr>
+        <tr>
+          <td>Sea Freight</td>
+          <td>12%</td>
+          <td>8%</td>
+          <td>80%</td>
+        </tr>
+        <tr>
+          <td>Land Transport</td>
+          <td>18%</td>
+          <td>12%</td>
+          <td>70%</td>
+        </tr>
+        <tr>
+          <td>Customs Services</td>
+          <td>20%</td>
+          <td>10%</td>
+          <td>70%</td>
+        </tr>
+      </table>
+
+      <h3>6-2. Financial Liability</h3>
+      <ul>
+        <li>Minimum liability insurance of $500,000 is mandatory for hubs</li>
+        <li>Cargo insurance is mandatory for all shipments over $10,000</li>
+        <li>Agent is responsible for damages resulting from agent negligence</li>
+        <li>Monthly settlement is completed by the 15th of the following month</li>
+      </ul>
+
+      <h3>6-3. Pricing Policy</h3>
+      <p>Pricing must be based on regional and competitive standards, and discounts exceeding 20% require headquarters approval.</p>
+
+      <h2 id="en-article7">Article 7: Data Security & Privacy</h2>
+      <h3>7-1. GDPR & International Standards Compliance</h3>
+      <ul>
+        <li>Complete compliance with European GDPR regulations and privacy laws of each country</li>
+        <li>Customer data encryption with AES-256 standard</li>
+        <li>Right of access, correction, and deletion of data for customers</li>
+        <li>Data retention for maximum 7 years after last transaction</li>
+      </ul>
+
+      <h3>7-2. AI Security Protocols</h3>
+      <ul>
+        <li>No use of personal data for AI model training without consent</li>
+        <li>Regular algorithm auditing to prevent discrimination</li>
+        <li>Transparency in automated decision-making</li>
+      </ul>
+
+      <h3>7-3. Confidentiality of Business Information</h3>
+      <div class="warning-box">
+        <strong>Confidential:</strong> Disclosure of company, customer, or competitor business information is prohibited and subject to legal action. Non-Disclosure Agreement (NDA) is mandatory for all agents.
+      </div>
+
+      <h2 id="en-article8">Article 8: Topping Academy & Training</h2>
+      <h3>8-1. Mandatory Training Courses</h3>
+      <table>
+        <tr>
+          <th>Course</th>
+          <th>Duration</th>
+          <th>Frequency</th>
+        </tr>
+        <tr>
+          <td>NAS Principles & Organizational Culture</td>
+          <td>2 days</td>
+          <td>Onboarding only</td>
+        </tr>
+        <tr>
+          <td>Logistics & AI Systems</td>
+          <td>3 days</td>
+          <td>Annual</td>
+        </tr>
+        <tr>
+          <td>Security & Privacy</td>
+          <td>1 day</td>
+          <td>Annual</td>
+        </tr>
+        <tr>
+          <td>Customer Service & Communications</td>
+          <td>2 days</td>
+          <td>Biennial</td>
+        </tr>
+      </table>
+
+      <h3>8-2. Certification & Validation</h3>
+      <ul>
+        <li>Initial certificate issued with 3-year validity</li>
+        <li>Certificate renewal requires successful completion of refresher courses</li>
+        <li>Minimum passing score: 80%</li>
+      </ul>
+
+      <h2 id="en-article9">Article 9: Dispute Resolution & Legal Matters</h2>
+      <h3>9-1. Dispute Resolution Mechanism</h3>
+      <p><strong>Stage 1:</strong> Direct negotiation between parties (maximum 15 days)</p>
+      <p><strong>Stage 2:</strong> Mediation by company internal committee (maximum 30 days)</p>
+      <p><strong>Stage 3:</strong> International arbitration by ICC (International Chamber of Commerce)</p>
+
+      <h3>9-2. Governing Law</h3>
+      <p>This contract is subject to the laws of the <strong>United Arab Emirates</strong> (company headquarters) and Dubai courts have jurisdiction.</p>
+
+      <h3>9-3. Contract Termination Conditions</h3>
+      <ul>
+        <li><strong>Mutual Termination:</strong> With 90-day written notice and settlement of all debts</li>
+        <li><strong>Unilateral Termination by Company:</strong> In case of serious contract violation with 30-day notice</li>
+        <li><strong>Immediate Termination:</strong> In cases of fraud, information disclosure, or serious brand damage</li>
+      </ul>
+
+      <h3>9-4. Consequences of Termination</h3>
+      <p>After contract termination, the agent must:</p>
+      <ul>
+        <li>Deliver all shipments in process</li>
+        <li>Remove all brand-related content from online platforms</li>
+        <li>Return all documents, equipment, and access received</li>
+        <li>Observe non-compete commitment for 12 months in the same geographical area</li>
+      </ul>
+
+      <h2 id="en-article10">Article 10: Signature & Legal Acceptance</h2>
+      <p>By signing this document, the agent declares that:</p>
+      <ul>
+        <li>Has carefully read all articles of this charter</li>
+        <li>Fully understands the terms and obligations</li>
+        <li>Commits to complete compliance with all clauses of this charter</li>
+        <li>Accepts the legal consequences of violating these commitments</li>
+      </ul>
+
+      <div class="signature-section">
+        <h3 style="color: #d4af37; text-align: center; margin-top: 0;">Digital Signature Form</h3>
+        
+        <div class="form-group">
+          <label>Full Name / Company Name *</label>
+          <input type="text" id="fullNameEn" required placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+          <label>Country / Region of Operation *</label>
+          <input type="text" id="countryEn" required placeholder="e.g., UAE - Dubai">
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" id="phoneEn" required placeholder="+971 50 123 4567">
+        </div>
+
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="emailEn" required placeholder="your.email@example.com">
+        </div>
+
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" id="confirm1En" required>
+            <span>I have read all articles of the NAS™ Charter</span>
+          </label>
+          <label>
+            <input type="checkbox" id="confirm2En" required>
+            <span>I commit to full compliance with Network, AI, Secure & Swift principles</span>
+          </label>
+          <label>
+            <input type="checkbox" id="confirm3En" required>
+            <span>I accept financial, security, and legal obligations</span>
+          </label>
+          <label>
+            <input type="checkbox" id="confirm4En" required>
+            <span>I am aware of the legal consequences of violating this charter</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Digital Signature (Full name as signature) *</label>
+          <input type="text" id="signatureEn" required placeholder="Enter your full name as signature">
+        </div>
+
+        <div class="form-group">
+          <label>Date</label>
+          <input type="text" id="dateEn" readonly value="">
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <button class="btn download-btn" onclick="downloadPDF()">📥 Download PDF</button>
+          <button class="btn" onclick="submitForm()" id="submitBtnEn">✓ Submit & Confirm</button>
+        </div>
+
+        <p style="text-align: center; color: #888; font-size: 13px; margin-top: 20px;">
+          By clicking "Submit & Confirm" this document becomes legally binding
+        </p>
+      </div>
+
+      <footer>
+        <p>© 2025 Topping Courier Inc. – All Rights Reserved</p>
+        <p>NAS™ Method Charter | Version 2.0</p>
+        <p>📧 legal@toppingcourier.com | 🌐 www.toppingcourier.com</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Set today's date
+    const today = new Date().toLocaleDateString('fa-IR');
+    const todayEn = new Date().toLocaleDateString('en-US');
+    document.getElementById('date').value = today;
+    document.getElementById('dateEn').value = todayEn;
+
+    // Language toggle
+    function toggleLanguage() {
+      const persian = document.getElementById('persian');
+      const english = document.getElementById('english');
+      const btn = document.querySelector('.lang-toggle');
+      
+      if (persian.style.display === 'none') {
+        persian.style.display = 'block';
+        english.style.display = 'none';
+        btn.textContent = 'English';
+        document.documentElement.setAttribute('dir', 'rtl');
+      } else {
+        persian.style.display = 'none';
+        english.style.display = 'block';
+        btn.textContent = 'فارسی';
+        document.documentElement.setAttribute('dir', 'ltr');
+      }
+    }
+
+    // Scroll to section
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Form submission
+    function submitForm() {
+      const isPersian = document.getElementById('persian').style.display !== 'none';
+      
+      if (isPersian) {
+        const fullName = document.getElementById('fullName').value;
+        const country = document.getElementById('country').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const confirm1 = document.getElementById('confirm1').checked;
+        const confirm2 = document.getElementById('confirm2').checked;
+        const confirm3 = document.getElementById('confirm3').checked;
+        const confirm4 = document.getElementById('confirm4').checked;
+        const signature = document.getElementById('signature').value;
+
+        if (!fullName || !country || !phone || !email || !signature) {
+          alert('لطفاً تمامی فیلدهای الزامی را تکمیل کنید.');
+          return;
+        }
+
+        if (!confirm1 || !confirm2 || !confirm3 || !confirm4) {
+          alert('لطفاً تمامی تأییدیه‌ها را علامت بزنید.');
+          return;
+        }
+
+        alert('✓ قرارداد با موفقیت ثبت شد!\n\nنام: ' + fullName + '\nکشور: ' + country + '\nتاریخ: ' + document.getElementById('date').value + '\n\nیک نسخه از این قرارداد به ایمیل شما ارسال خواهد شد.');
+      } else {
+        const fullName = document.getElementById('fullNameEn').value;
+        const country = document.getElementById('countryEn').value;
+        const phone = document.getElementById('phoneEn').value;
+        const email = document.getElementById('emailEn').value;
+        const confirm1 = document.getElementById('confirm1En').checked;
+        const confirm2 = document.getElementById('confirm2En').checked;
+        const confirm3 = document.getElementById('confirm3En').checked;
+        const confirm4 = document.getElementById('confirm4En').checked;
+        const signature = document.getElementById('signatureEn').value;
+
+        if (!fullName || !country || !phone || !email || !signature) {
+          alert('Please complete all required fields.');
+          return;
+        }
+
+        if (!confirm1 || !confirm2 || !confirm3 || !confirm4) {
+          alert('Please check all confirmations.');
+          return;
+        }
+
+        alert('✓ Contract successfully submitted!\n\nName: ' + fullName + '\nCountry: ' + country + '\nDate: ' + document.getElementById('dateEn').value + '\n\nA copy of this contract will be sent to your email.');
+      }
+    }
+
+    // PDF Download
+    function downloadPDF() {
+      const isPersian = document.getElementById('persian').style.display !== 'none';
+      if (isPersian) {
+        alert('⚠ قابلیت دانلود PDF به زودی فعال خواهد شد.\nدر حال حاضر می‌توانید از گزینه Print مرورگر خود استفاده کنید (Ctrl+P).');
+      } else {
+        alert('⚠ PDF download feature will be activated soon.\nYou can currently use your browser\'s Print option (Ctrl+P).');
+      }
+    }
+  </script>
+</body>
+</html>

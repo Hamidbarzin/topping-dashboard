@@ -3,6 +3,7 @@ const PAGES = [
   { id: "logistics-checklist", title: "چک‌لیست راه‌اندازی", file: "pages/logistics-checklist.html", icon: "📦" },
   { id: "dev-hamed", title: "توسعه و کدنویسی (Dev Hamed)", file: "pages/dev-hamed.html", icon: "💻" },
   { id: "nas-method", title: "متد NAS", file: "pages/nas-method.html", icon: "⚙️" },
+  { id: "nas-protocol", title: "قانون اساسی متد NAS™", file: "Topping_NAS_Protocol.html", icon: "📜" },
   { id: "representatives", title: "نمایندگان و همکاران", file: "pages/representatives.html", icon: "🌐" },
   { id: "nas-proposal", title: "پروپوزال NAS", file: "pages/nas-proposal.html", icon: "🧠" },
   { id: "permit-matrix", title: "جدول مجوزها (Permit Matrix)", file: "pages/permit-matrix.html", icon: "📋" }
