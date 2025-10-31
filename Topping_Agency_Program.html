@@ -10,28 +10,26 @@
     
     body {
       font-family: 'Vazirmatn', sans-serif;
-      background: linear-gradient(135deg, #0a0a0f 0%, #1a1530 50%, #0f0f1a 100%);
-      color: #fff;
+      background: #0a0a0f;
+      color: #e8e8e8;
       line-height: 1.8;
       overflow-x: hidden;
     }
 
     .hero {
-      background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(10,10,15,0.9) 100%),
-                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23d4af37;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%230a0a0f;stop-opacity:0.3"/></linearGradient></defs><path d="M0,300 Q300,150 600,300 T1200,300 L1200,600 L0,600 Z" fill="url(%23g)"/></svg>');
+      background: linear-gradient(180deg, #1a1a24 0%, #0f0f16 100%);
       padding: 80px 20px 100px;
       text-align: center;
       position: relative;
-      border-bottom: 3px solid #d4af37;
+      border-bottom: 1px solid #d4af37;
     }
 
     .hero h1 {
       font-size: clamp(28px, 5vw, 48px);
       color: #d4af37;
-      text-shadow: 0 0 30px rgba(212,175,55,0.6);
       margin-bottom: 15px;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     .hero .subtitle {
@@ -62,34 +60,33 @@
       font-size: 16px;
       font-weight: 700;
       border: none;
-      border-radius: 50px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       font-family: 'Vazirmatn', sans-serif;
       text-decoration: none;
       display: inline-block;
     }
 
     .cta-primary {
-      background: linear-gradient(135deg, #d4af37 0%, #f0d461 100%);
+      background: #d4af37;
       color: #0a0a0f;
-      box-shadow: 0 5px 20px rgba(212,175,55,0.4);
     }
 
     .cta-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(212,175,55,0.6);
+      background: #e6c047;
+      transform: translateY(-2px);
     }
 
     .cta-secondary {
-      background: rgba(212,175,55,0.1);
+      background: transparent;
       color: #d4af37;
       border: 2px solid #d4af37;
     }
 
     .cta-secondary:hover {
-      background: rgba(212,175,55,0.2);
-      transform: translateY(-3px);
+      background: rgba(212,175,55,0.1);
+      transform: translateY(-2px);
     }
 
     .container {
@@ -99,30 +96,12 @@
     }
 
     .section {
-      background: rgba(20,20,30,0.5);
+      background: #141419;
       padding: 50px;
       margin-bottom: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 12px;
+      border: 1px solid #2a2a30;
       position: relative;
-      overflow: hidden;
-    }
-
-    .section::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
-      animation: rotate 20s linear infinite;
-    }
-
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
     }
 
     .section-content {
@@ -135,7 +114,7 @@
       font-size: clamp(24px, 4vw, 32px);
       margin-bottom: 25px;
       padding-bottom: 15px;
-      border-bottom: 2px solid rgba(212,175,55,0.3);
+      border-bottom: 2px solid #2a2a30;
       font-weight: 700;
     }
 
@@ -154,29 +133,29 @@
     }
 
     .level-card {
-      background: linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(20,20,30,0.8) 100%);
+      background: #1a1a20;
       padding: 30px;
-      border-radius: 15px;
-      border: 2px solid rgba(212,175,55,0.3);
-      transition: all 0.4s;
+      border-radius: 10px;
+      border: 1px solid #2a2a35;
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
 
     .level-card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-5px);
       border-color: #d4af37;
-      box-shadow: 0 15px 40px rgba(212,175,55,0.3);
+      box-shadow: 0 10px 30px rgba(212,175,55,0.15);
     }
 
     .level-badge {
       position: absolute;
       top: 15px;
       left: 15px;
-      background: linear-gradient(135deg, #d4af37 0%, #f0d461 100%);
+      background: #d4af37;
       color: #0a0a0f;
       padding: 5px 15px;
-      border-radius: 20px;
+      border-radius: 6px;
       font-size: 12px;
       font-weight: 700;
     }
@@ -209,10 +188,10 @@
     }
 
     .commission-box {
-      background: rgba(100,200,100,0.1);
+      background: rgba(100,200,100,0.08);
       border: 2px solid #64c864;
       padding: 15px;
-      border-radius: 10px;
+      border-radius: 8px;
       margin-top: 15px;
       text-align: center;
     }
@@ -232,17 +211,15 @@
     }
 
     .requirement-item {
-      background: rgba(30,30,40,0.6);
+      background: #1a1a20;
       padding: 25px;
-      border-radius: 12px;
-      border-left: 4px solid #d4af37;
-      transition: all 0.3s;
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      border-left: 3px solid #d4af37;
+      transition: all 0.3s ease;
     }
 
     .requirement-item:hover {
-      background: rgba(212,175,55,0.1);
+      background: rgba(212,175,55,0.05);
       transform: translateX(-5px);
     }
 
@@ -268,9 +245,9 @@
     .network-diagram {
       background: rgba(212,175,55,0.03);
       padding: 40px;
-      border-radius: 15px;
+      border-radius: 10px;
       margin: 30px 0;
-      border: 1px solid rgba(212,175,55,0.2);
+      border: 1px solid #2a2a30;
     }
 
     .network-level {
@@ -283,45 +260,45 @@
     }
 
     .network-node {
-      background: linear-gradient(135deg, #d4af37 0%, #f0d461 100%);
+      background: #d4af37;
       color: #0a0a0f;
       padding: 15px 25px;
-      border-radius: 10px;
+      border-radius: 8px;
       font-weight: 700;
       font-size: 14px;
       position: relative;
-      box-shadow: 0 5px 15px rgba(212,175,55,0.3);
     }
 
     .network-connector {
       width: 2px;
       height: 30px;
-      background: linear-gradient(to bottom, #d4af37, transparent);
+      background: #d4af37;
       margin: 0 auto;
+      opacity: 0.5;
     }
 
     .info-box {
-      background: linear-gradient(135deg, rgba(100,150,255,0.1) 0%, rgba(100,150,255,0.05) 100%);
-      border-left: 4px solid #6496ff;
+      background: rgba(100,150,255,0.08);
+      border-left: 3px solid #6496ff;
       padding: 25px;
       margin: 25px 0;
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     .warning-box {
-      background: linear-gradient(135deg, rgba(255,100,100,0.1) 0%, rgba(255,100,100,0.05) 100%);
-      border-left: 4px solid #ff6464;
+      background: rgba(255,100,100,0.08);
+      border-left: 3px solid #ff6464;
       padding: 25px;
       margin: 25px 0;
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     .success-box {
-      background: linear-gradient(135deg, rgba(100,255,100,0.1) 0%, rgba(100,255,100,0.05) 100%);
-      border-left: 4px solid #64ff64;
+      background: rgba(100,255,100,0.08);
+      border-left: 3px solid #64ff64;
       padding: 25px;
       margin: 25px 0;
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     .ai-features {
@@ -334,14 +311,16 @@
     .ai-feature {
       text-align: center;
       padding: 25px;
-      background: rgba(212,175,55,0.05);
-      border-radius: 15px;
-      transition: all 0.3s;
+      background: #1a1a20;
+      border-radius: 10px;
+      border: 1px solid #2a2a30;
+      transition: all 0.3s ease;
     }
 
     .ai-feature:hover {
-      background: rgba(212,175,55,0.1);
-      transform: scale(1.05);
+      background: rgba(212,175,55,0.05);
+      transform: translateY(-3px);
+      border-color: #d4af37;
     }
 
     .ai-icon {
@@ -366,14 +345,14 @@
       width: 100%;
       border-collapse: collapse;
       margin: 25px 0;
-      background: rgba(212,175,55,0.03);
+      background: #1a1a20;
       border-radius: 10px;
       overflow: hidden;
     }
 
     th {
-      background: rgba(212,175,55,0.2);
-      color: #fff;
+      background: #2a2a35;
+      color: #d4af37;
       padding: 15px;
       text-align: right;
       font-weight: 700;
@@ -382,7 +361,7 @@
 
     td {
       padding: 15px;
-      border-bottom: 1px solid rgba(212,175,55,0.1);
+      border-bottom: 1px solid #2a2a30;
       color: #ccc;
       font-size: 14px;
     }
@@ -392,13 +371,13 @@
     }
 
     tr:hover {
-      background: rgba(212,175,55,0.05);
+      background: rgba(212,175,55,0.03);
     }
 
     .apply-section {
-      background: linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(20,20,30,0.9) 100%);
+      background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, #141419 100%);
       padding: 60px;
-      border-radius: 20px;
+      border-radius: 12px;
       text-align: center;
       margin-top: 50px;
       border: 2px solid #d4af37;
@@ -419,9 +398,9 @@
     .stat-item {
       text-align: center;
       padding: 25px;
-      background: rgba(212,175,55,0.05);
-      border-radius: 12px;
-      border: 1px solid rgba(212,175,55,0.2);
+      background: #1a1a20;
+      border-radius: 10px;
+      border: 1px solid #2a2a30;
     }
 
     .stat-number {
@@ -442,7 +421,7 @@
       padding: 40px 20px;
       color: #666;
       font-size: 13px;
-      border-top: 1px solid rgba(212,175,55,0.2);
+      border-top: 1px solid #2a2a30;
     }
 
     @media (max-width: 768px) {
@@ -751,4 +730,10 @@
           <div class="requirement-item">
             <span class="requirement-icon">📱</span>
             <h4>فقط یک موبایل</h4>
-            <p
+            <p>هیچ سرمایه‌ای لازم نیست، فقط گوشی هوشمند</p>
+          </div>
+
+          <div class="requirement-item">
+            <span class="requirement-icon">🎯</span>
+            <h4>مهارت فروش</h4>
+            <p>توانایی معرفی محصول و ارتباط با مش
