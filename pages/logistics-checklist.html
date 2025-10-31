@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>چک‌لیست راه‌اندازی Topping AI Hub - مدل شبکه‌ای</title>
+  <style>
+    :root{
+      --bg:#0b0b0f;--card:#121218;--muted:#1a1a22;--gold:#d4af37;--text:#e9e9ef;--sub:#b7b7c7;
+      --critical:#ff4444;--high:#ff9800;--medium:#ffc107;--low:#4caf50;--optional:#2196f3;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{background:linear-gradient(180deg,#0b0b0f 0%,#0f0f14 100%);color:var(--text);font-family:"IRANSans",Vazirmatn,system-ui,sans-serif;padding-bottom:40px}
+    .container{max-width:1200px;margin:20px auto;padding:16px}
+    
+    header{background:var(--card);border:1px solid #20202a;border-radius:16px;padding:20px;margin-bottom:20px}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .logo{width:48px;height:48px;border-radius:12px;border:2px solid var(--gold);display:grid;place-items:center;font-weight:800;color:var(--gold);font-size:1.3rem}
+    h1{font-size:1.5rem;margin-bottom:4px}
+    .subtitle{color:var(--sub);font-size:0.9rem}
+    
+    .controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid #20202a}
+    button{background:var(--gold);border:none;color:#0a0a0a;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;font-size:0.9rem;transition:all 0.2s}
+    button:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(212,175,55,0.3)}
+    button.secondary{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+    button.ghost{background:transparent;border:1px solid var(--muted);color:var(--sub)}
+    
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+    .filter-btn{padding:6px 12px;border-radius:8px;border:1px solid #2a2a36;background:var(--muted);color:var(--sub);cursor:pointer;font-size:0.85rem;transition:all 0.2s}
+    .filter-btn.active{border-color:var(--gold);background:rgba(212,175,55,0.15);color:var(--gold)}
+    
+    .search-box{width:100%;max-width:400px;padding:10px 14px;background:#0f0f14;border:1px solid #2a2a36;border-radius:10px;color:var(--text);font-size:0.9rem;margin-bottom:16px}
+    
+    .progress-card{background:linear-gradient(180deg,rgba(212,175,55,0.05),rgba(212,175,55,0.00));border:1px solid #20202a;border-radius:16px;padding:20px;margin-bottom:20px}
+    .progress-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:16px}
+    .stat{text-align:center;padding:12px;background:var(--card);border-radius:10px;border:1px solid #1e1e28}
+    .stat-value{font-size:1.8rem;font-weight:700;margin-bottom:4px}
+    .stat-label{font-size:0.8rem;color:var(--sub)}
+    .progress{display:flex;align-items:center;gap:12px}
+    .bar{height:12px;flex:1;border-radius:999px;background:#1b1b24;overflow:hidden}
+    .bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#ffd76a);width:0%;transition:width 0.5s ease}
+    
+    .priority-legend{display:flex;flex-wrap:wrap;gap:12px;padding:16px;background:var(--card);border-radius:12px;border:1px solid #20202a;margin-bottom:20px}
+    .legend-item{display:flex;align-items:center;gap:8px;font-size:0.85rem}
+    .legend-dot{width:12px;height:12px;border-radius:50%}
+    
+    .section{margin-bottom:24px}
+    .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;cursor:pointer;padding:12px 16px;background:var(--card);border-radius:12px;border:1px solid #20202a;transition:all 0.2s}
+    .section-header:hover{border-color:#2a2a36;background:#16161d}
+    .section-title{display:flex;align-items:center;gap:12px}
+    .section-badge{background:var(--gold);color:#0a0a0a;padding:4px 12px;border-radius:6px;font-weight:700;font-size:0.85rem}
+    .section h3{font-size:1.1rem;font-weight:600}
+    .section-progress{color:var(--sub);font-size:0.85rem}
+    .collapse-icon{transition:transform 0.3s;color:var(--gold)}
+    .section-content{max-height:5000px;overflow:hidden;transition:max-height 0.3s ease}
+    .section-content.collapsed{max-height:0}
+    
+    .row{display:grid;grid-template-columns:24px 200px 1fr 200px 280px;align-items:start;gap:12px;padding:14px;border-radius:12px;background:var(--card);border:1px solid #1e1e28;margin-bottom:10px;transition:all 0.2s;position:relative}
+    .row:hover{border-color:#2a2a36;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+    .row.hidden{display:none}
+    .row::before{content:'';position:absolute;right:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px}
+    .row[data-priority="critical"]::before{background:var(--critical)}
+    .row[data-priority="high"]::before{background:var(--high)}
+    .row[data-priority="medium"]::before{background:var(--medium)}
+    .row[data-priority="low"]::before{background:var(--low)}
+    .row[data-priority="optional"]::before{background:var(--optional)}
+    
+    .priority-badge{display:inline-block;padding:4px 10px;border-radius:6px;font-size:0.75rem;font-weight:600;text-transform:uppercase}
+    .priority-critical{background:rgba(255,68,68,0.2);color:var(--critical);border:1px solid var(--critical)}
+    .priority-high{background:rgba(255,152,0,0.2);color:var(--high);border:1px solid var(--high)}
+    .priority-medium{background:rgba(255,193,7,0.2);color:var(--medium);border:1px solid var(--medium)}
+    .priority-low{background:rgba(76,175,80,0.2);color:var(--low);border:1px solid var(--low)}
+    .priority-optional{background:rgba(33,150,243,0.2);color:var(--optional);border:1px solid var(--optional)}
+    
+    input[type="checkbox"]{accent-color:var(--gold);width:20px;height:20px;margin-top:4px;cursor:pointer}
+    textarea,input[type="text"]{width:100%;background:#0f0f14;border:1px solid #2a2a36;color:var(--text);border-radius:8px;padding:8px;resize:vertical;min-height:40px;font-size:0.85rem;font-family:inherit}
+    textarea:focus,input[type="text"]:focus{outline:none;border-color:var(--gold)}
+    .note{min-height:50px}
+    .muted{color:var(--sub);font-size:0.85rem}
+    
+    .footer{text-align:center;padding:20px;color:var(--sub);font-size:0.85rem;margin-top:40px;border-top:1px solid #20202a}
+    .save-status{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--card);border-radius:8px;margin-top:12px}
+    .save-indicator{width:8px;height:8px;border-radius:50%;background:var(--low)}
+    .save-indicator.saving{background:var(--medium);animation:pulse 1s infinite}
+    
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+    
+    @media (max-width:1024px){
+      .row{grid-template-columns:24px 1fr;gap:10px}
+      .row>*:not(:first-child):not(:nth-child(2)){grid-column:1/-1;margin-right:34px}
+    }
+    
+    @media print{
+      body{background:#fff;color:#000}
+      .controls,.filters,.search-box{display:none!important}
+      button{display:none!important}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">TC</div>
+        <div>
+          <h1>Topping AI Hub – مدل شبکه‌ای با شرکای برون‌سپاری</h1>
+          <div class="subtitle">🌐 Network-Based Model: Topping = هسته مرکزی AI | Outsourcing: ترخیص، حمل، انبار</div>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="saveBtn">💾 ذخیره دستی</button>
+        <button id="exportJson" class="secondary">📥 JSON</button>
+        <button id="exportCsv" class="secondary">📊 CSV</button>
+        <button id="clearAll" class="ghost">🗑️ پاک‌سازی</button>
+        <button onclick="window.print()" class="secondary">🖨️ چاپ</button>
+      </div>
+    </header>
+
+    <input type="text" class="search-box" id="searchBox" placeholder="🔍 جستجو در آیتم‌ها..." />
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">همه (<span class="count-all">0</span>)</button>
+      <button class="filter-btn" data-filter="critical">🔴 بحرانی (<span class="count-critical">0</span>)</button>
+      <button class="filter-btn" data-filter="high">🟠 مهم (<span class="count-high">0</span>)</button>
+      <button class="filter-btn" data-filter="medium">🟡 متوسط (<span class="count-medium">0</span>)</button>
+      <button class="filter-btn" data-filter="low">🟢 کم (<span class="count-low">0</span>)</button>
+      <button class="filter-btn" data-filter="optional">🔵 اختیاری (<span class="count-optional">0</span>)</button>
+      <button class="filter-btn" data-filter="done">✅ انجام شده (<span class="count-done">0</span>)</button>
+      <button class="filter-btn" data-filter="pending">⏳ در انتظار (<span class="count-pending">0</span>)</button>
+    </div>
+
+    <div class="progress-card">
+      <div class="progress-stats">
+        <div class="stat">
+          <div class="stat-value" id="totalItems">0</div>
+          <div class="stat-label">کل آیتم‌ها</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="completedItems">0</div>
+          <div class="stat-label">تکمیل شده</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="criticalPending">0</div>
+          <div class="stat-label">بحرانی باقی‌مانده</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="highPending">0</div>
+          <div class="stat-label">مهم باقی‌مانده</div>
+        </div>
+        <div class="stat" style="border:2px solid var(--gold)">
+          <div class="stat-value" style="color:var(--gold)" id="totalScore">0</div>
+          <div class="stat-label" style="color:var(--gold)">🏆 امتیاز کل</div>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="bar"><span id="progressBar"></span></div>
+        <div class="legend"><span id="progressText">0%</span></div>
+      </div>
+    </div>
+
+    <div class="priority-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--critical)"></div><strong>بحرانی:</strong> بدون این کار نمی‌شود شروع کرد</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--high)"></div><strong>مهم:</strong> لازم برای عملیات روزانه</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--medium)"></div><strong>متوسط:</strong> برای رشد و توسعه</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--low)"></div><strong>کم:</strong> بهبود فرآیند</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--optional)"></div><strong>اختیاری:</strong> آینده و مقیاس‌پذیری</div>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div class="section" data-section="phase1">
+      <div class="section-header" onclick="toggleSection('phase1')">
+        <div class="section-title">
+          <span class="section-badge">فاز ۱</span>
+          <h3>🧠 هسته مرکزی Topping (AI Hub - بحرانی)</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="section-progress"><span class="section-done">0</span> از <span class="section-total">0</span></span>
+          <span class="collapse-icon">▼</span>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="row" data-key="legal-ca" data-priority="critical">
+          <input type="checkbox" />
+          <div>ثبت شرکت در کانادا</div>
+          <div class="muted">CRA + Business Number - پایه قانونی</div>
+          <div><span class="priority-badge priority-critical">بحرانی</span></div>
+          <textarea class="note" placeholder="شماره ثبت / CRA BN / وضعیت"></textarea>
+        </div>
+
+        <div class="row" data-key="insurance" data-priority="critical">
+          <input type="checkbox" />
+          <div>بیمه مسئولیت و خطا</div>
+          <div class="muted">E&O + General Liability - حداقل 2M</div>
+          <div><span class="priority-badge priority-critical">بحرانی</span></div>
+          <textarea class="note" placeholder="شرکت بیمه / سقف پوشش / پلیسه"></textarea>
+        </div>
+
+        <div class="row" data-key="bank" data-priority="critical">
+          <input type="checkbox" />
+          <div>حساب بانکی کسب‌وکار</div>
+          <div class="muted">CAD Business Account + Multi-currency</div>
+          <div><span class="priority-badge priority-critical">بحرانی</span></div>
+          <textarea class="note" placeholder="بانک / شماره حساب / Online Banking"></textarea>
+        </div>
+
+        <div class="row" data-key="admin-core" data-priority="critical">
+          <input type="checkbox" />
+          <div>پلتفرم AI Hub (وب‌اپ)</div>
+          <div class="muted">Dashboard مرکزی - کنترل شبکه و سفارشات</div>
+          <div><span class="priority-badge priority-critical">بحرانی</span></div>
+          <textarea class="note" placeholder="Stack / URL / Features: Order, Network, Analytics"></textarea>
+        </div>
+
+        <div class="row" data-key="ai-pricing" data-priority="critical">
+          <input type="checkbox" />
+          <div>موتور AI قیمت‌گذاری</div>
+          <div class="muted">Dynamic Pricing Engine + ETA Calculator</div>
+          <div><span class="priority-badge priority-critical">بحرانی</span></div>
+          <textarea class="note" placeholder="Algorithm / Data Sources / API"></textarea>
+        </div>
+
+        <div class="row" data-key="customer-portal" data-priority="critical">
+          <input type="checkbox" />
+          <div>پورتال مشتری</div>
+          <div class="muted">Self-Service: Quote, Book, Track, Pay</div>
+          <div><span class="priority-badge priority-critical">بحرانی</span></div>
+          <textarea class="note" placeholder="URL / Payment Gateway / Features"></textarea>
+        </div>
+
+        <div class="row" data-key="api-integrations" data-priority="critical">
+          <input type="checkbox" />
+          <div>اتصالات API اصلی</div>
+          <div class="muted">Airlines + Customs + Payment + Partners</div>
+          <div><span class="priority-badge priority-critical">بحرانی</span></div>
+          <textarea class="note" placeholder="Air Canada, Emirates, Stripe, CBSA API"></textarea>
+        </div>
+
+        <div class="row" data-key="gdpr-security" data-priority="critical">
+          <input type="checkbox" />
+          <div>امنیت و حریم خصوصی</div>
+          <div class="muted">GDPR/PIPEDA + SSL + Encryption + Backup</div>
+          <div><span class="priority-badge priority-critical">بحرانی</span></div>
+          <textarea class="note" placeholder="Policy / Encryption / Cloud Backup / SSL"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="section" data-section="phase2">
+      <div class="section-header" onclick="toggleSection('phase2')">
+        <div class="section-title">
+          <span class="section-badge">فاز ۲</span>
+          <h3>📋 گمرک - صادرات و شبکه Brokers</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="section-progress"><span class="section-done">0</span> از <span class="section-total">0</span></span>
+          <span class="collapse-icon">▼</span>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="row" data-key="export-rm-account" data-priority="critical">
+          <input type="checkbox" />
+          <div>RM Account برای صادرات</div>
+          <div class="muted">BN با RM0001 - برای ارسال به خارج از کانادا (نیاز به Broker License نداری!)</div>
+          <div><span class="priority-badge priority-critical">بحرانی</span></div>
+          <textarea class="note" placeholder="BN: 123456789RM0001 / تاریخ فعال‌سازی"></textarea>
+        </div>
+
+        <div class="row" data-key="import-importer-record" data-priority="high">
+          <input type="checkbox" />
+          <div>ثبت به عنوان Importer of Record</div>
+          <div class="muted">برای ترخیص کالاهای خودت در کانادا - ثبت در CBSA</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="CBSA Registration / Importer Number"></textarea>
+        </div>
+
+        <div class="row" data-key="broker-ca-primary" data-priority="high">
+          <input type="checkbox" />
+          <div>Broker اصلی کانادا (شریک)</div>
+          <div class="muted">⚠️ فقط اگر می‌خواهی برای مشتریان ترخیص کنی - CBSA License دارد</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="نام شرکت / Broker Number / SLA / قرارداد"></textarea>
+        </div>
+
+        <div class="row" data-key="broker-ca-backup" data-priority="medium">
+          <input type="checkbox" />
+          <div>Broker پشتیبان کانادا</div>
+          <div class="muted">Redundancy برای اضطراری</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="نام شرکت / Cities / Contact"></textarea>
+        </div>
+
+        <div class="row" data-key="broker-eu" data-priority="medium">
+          <input type="checkbox" />
+          <div>Broker مقصد (EU/Asia/etc)</div>
+          <div class="muted">برای ترخیص در کشور مقصد</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="Country / Partner Name / EORI"></textarea>
+        </div>
+
+        <div class="row" data-key="controlled-goods-permits" data-priority="low">
+          <input type="checkbox" />
+          <div>مجوزهای کالای کنترل‌شده</div>
+          <div class="muted">Global Affairs Canada / CFIA - اگر دارو، غذا، نظامی ارسال می‌کنی</div>
+          <div><span class="priority-badge priority-low">کم</span></div>
+          <textarea class="note" placeholder="نوع کالا / مجوز / شماره"></textarea>
+        </div>
+
+        <div class="row" data-key="customs-api" data-priority="high">
+          <input type="checkbox" />
+          <div>اتصال API گمرک</div>
+          <div class="muted">CBSA API / e-Manifest / Real-time Status</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="API Endpoint / Auth / Test Results"></textarea>
+        </div>
+
+        <div class="row" data-key="hs-database" data-priority="high">
+          <input type="checkbox" />
+          <div>پایگاه داده HS Codes</div>
+          <div class="muted">Auto-classification + Duty Calculator</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Database Source / API / Updates"></textarea>
+        </div>
+
+        <div class="row" data-key="docs-templates" data-priority="high">
+          <input type="checkbox" />
+          <div>قالب‌های اسناد گمرکی</div>
+          <div class="muted">Invoice, Packing List, AWB - استاندارد</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Templates / Auto-generation / Compliance"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="section" data-section="phase3">
+      <div class="section-header" onclick="toggleSection('phase3')">
+        <div class="section-title">
+          <span class="section-badge">فاز ۳</span>
+          <h3>🚚 شبکه حمل‌ونقل (Logistics Partners Network)</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="section-progress"><span class="section-done">0</span> از <span class="section-total">0</span></span>
+          <span class="collapse-icon">▼</span>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="row" data-key="airline-ac" data-priority="high">
+          <input type="checkbox" />
+          <div>Air Canada Cargo Account</div>
+          <div class="muted">ایرلاین اصلی - Rate Agreement</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Account Number / API Access / Rates"></textarea>
+        </div>
+
+        <div class="row" data-key="airline-ek" data-priority="high">
+          <input type="checkbox" />
+          <div>Emirates SkyCargo Account</div>
+          <div class="muted">پوشش Middle East / Asia</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Account Number / Routes / Rates"></textarea>
+        </div>
+
+        <div class="row" data-key="airline-tk" data-priority="medium">
+          <input type="checkbox" />
+          <div>Turkish Cargo Account</div>
+          <div class="muted">Hub Istanbul - EU/Asia Connectivity</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="Account Number / Network"></textarea>
+        </div>
+
+        <div class="row" data-key="courier-local" data-priority="high">
+          <input type="checkbox" />
+          <div>شرکای Courier محلی</div>
+          <div class="muted">Pick-up & Last-mile Delivery - Toronto/GTA</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="نام شرکت‌ها / SLA / Coverage / Rates"></textarea>
+        </div>
+
+        <div class="row" data-key="courier-nationwide" data-priority="medium">
+          <input type="checkbox" />
+          <div>شریک حمل سراسری</div>
+          <div class="muted">Canada-wide Coverage - برای شهرستان‌ها</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="Canada Post / Purolator / قرارداد"></textarea>
+        </div>
+
+        <div class="row" data-key="tracking-system" data-priority="high">
+          <input type="checkbox" />
+          <div>سیستم رهگیری یکپارچه</div>
+          <div class="muted">Real-time Tracking از همه شرکا</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="API Aggregation / GPS / Customer View"></textarea>
+        </div>
+
+        <div class="row" data-key="dispatch-system" data-priority="high">
+          <input type="checkbox" />
+          <div>سیستم Dispatch مرکزی</div>
+          <div class="muted">مدیریت سفارشات به شرکا + Routing</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Dashboard / Auto-assign / Performance"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="section" data-section="phase4">
+      <div class="section-header" onclick="toggleSection('phase4')">
+        <div class="section-title">
+          <span class="section-badge">فاز ۴</span>
+          <h3>📦 شبکه انبارداری (Warehousing Partners)</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="section-progress"><span class="section-done">0</span> از <span class="section-total">0</span></span>
+          <span class="collapse-icon">▼</span>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="row" data-key="warehouse-primary" data-priority="medium">
+          <input type="checkbox" />
+          <div>انبار اصلی نزدیک فرودگاه</div>
+          <div class="muted">Pearson Area - برای Consolidation</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="Location / Space / 3PL Partner / Security"></textarea>
+        </div>
+
+        <div class="row" data-key="warehouse-wms" data-priority="medium">
+          <input type="checkbox" />
+          <div>سیستم WMS یکپارچه</div>
+          <div class="muted">Warehouse Management با شریک انبار</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="Software / Integration / Real-time Inventory"></textarea>
+        </div>
+
+        <div class="row" data-key="equipment-scales" data-priority="high">
+          <input type="checkbox" />
+          <div>ترازو و ابزار اندازه‌گیری</div>
+          <div class="muted">Certified Scales - دقت وزن و ابعاد</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Model / Calibration / Location"></textarea>
+        </div>
+
+        <div class="row" data-key="equipment-labels" data-priority="high">
+          <input type="checkbox" />
+          <div>لیبل‌زن و Barcode</div>
+          <div class="muted">Industrial Label Printer + Barcode Scanner</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Printer Model / Software / Standards"></textarea>
+        </div>
+
+        <div class="row" data-key="packaging-standards" data-priority="low">
+          <input type="checkbox" />
+          <div>استانداردهای بسته‌بندی</div>
+          <div class="muted">IATA Standards + DG Compliance (در صورت نیاز)</div>
+          <div><span class="priority-badge priority-low">کم</span></div>
+          <textarea class="note" placeholder="Standards / Training / Materials"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div class="section" data-section="phase5">
+      <div class="section-header" onclick="toggleSection('phase5')">
+        <div class="section-title">
+          <span class="section-badge">فاز ۵</span>
+          <h3>💰 عملیات مالی و پرداخت (Financial Operations)</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="section-progress"><span class="section-done">0</span> از <span class="section-total">0</span></span>
+          <span class="collapse-icon">▼</span>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="row" data-key="payment-gateway" data-priority="high">
+          <input type="checkbox" />
+          <div>درگاه پرداخت آنلاین</div>
+          <div class="muted">Stripe / PayPal - Multi-currency</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Provider / Integration / Test Mode"></textarea>
+        </div>
+
+        <div class="row" data-key="payment-intl" data-priority="medium">
+          <input type="checkbox" />
+          <div>پرداخت بین‌المللی</div>
+          <div class="muted">Wise / Payoneer - برای شرکا</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="Account / Verification / Test Transfer"></textarea>
+        </div>
+
+        <div class="row" data-key="accounting-software" data-priority="high">
+          <input type="checkbox" />
+          <div>نرم‌افزار حسابداری</div>
+          <div class="muted">QuickBooks / Xero - Auto-reconciliation</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Software / Setup / Integration"></textarea>
+        </div>
+
+        <div class="row" data-key="invoicing-auto" data-priority="high">
+          <input type="checkbox" />
+          <div>صورتحساب خودکار</div>
+          <div class="muted">Auto-invoicing با Tax Rules (HST/GST)</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Templates / Tax Engine / Email Delivery"></textarea>
+        </div>
+
+        <div class="row" data-key="credit-terms" data-priority="medium">
+          <input type="checkbox" />
+          <div>شرایط اعتباری شرکا</div>
+          <div class="muted">NET 15/30 با ایرلاین‌ها و شرکا</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="Terms / Limits / Agreements"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 6 -->
+    <div class="section" data-section="phase6">
+      <div class="section-header" onclick="toggleSection('phase6')">
+        <div class="section-title">
+          <span class="section-badge">فاز ۶</span>
+          <h3>⚖️ قانونی و انطباق (Legal & Compliance)</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="section-progress"><span class="section-done">0</span> از <span class="section-total">0</span></span>
+          <span class="collapse-icon">▼</span>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="row" data-key="ciffa-membership" data-priority="medium">
+          <input type="checkbox" />
+          <div>عضویت CIFFA</div>
+          <div class="muted">اعتبار حرفه‌ای در صنعت فورواردینگ</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="Membership Number / Date / Status"></textarea>
+        </div>
+
+        <div class="row" data-key="iata-cass" data-priority="low">
+          <input type="checkbox" />
+          <div>IATA CASS</div>
+          <div class="muted">تسهیل تسویه مالی با ایرلاین‌ها</div>
+          <div><span class="priority-badge priority-low">کم</span></div>
+          <textarea class="note" placeholder="Application Status / CASS Code"></textarea>
+        </div>
+
+        <div class="row" data-key="contracts-partners" data-priority="high">
+          <input type="checkbox" />
+          <div>قراردادهای شرکا</div>
+          <div class="muted">SLA با Brokers, Couriers, Airlines</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Templates / Signed Contracts / DocuSign"></textarea>
+        </div>
+
+        <div class="row" data-key="terms-conditions" data-priority="high">
+          <input type="checkbox" />
+          <div>Terms & Conditions مشتری</div>
+          <div class="muted">شرایط خدمات + Liability Limits</div>
+          <div><span class="priority-badge priority-high">مهم</span></div>
+          <textarea class="note" placeholder="Legal Review / Website / Acceptance"></textarea>
+        </div>
+
+        <div class="row" data-key="trademark" data-priority="low">
+          <input type="checkbox" />
+          <div>ثبت برند Topping</div>
+          <div class="muted">Trademark Registration - Canada/International</div>
+          <div><span class="priority-badge priority-low">کم</span></div>
+          <textarea class="note" placeholder="Application / CIPO / WIPO"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 7 -->
+    <div class="section" data-section="phase7">
+      <div class="section-header" onclick="toggleSection('phase7')">
+        <div class="section-title">
+          <span class="section-badge">فاز ۷</span>
+          <h3>🎯 برند و بازاریابی (Brand & Marketing)</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="section-progress"><span class="section-done">0</span> از <span class="section-total">0</span></span>
+          <span class="collapse-icon">▼</span>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="row" data-key="website" data-priority="medium">
+          <input type="checkbox" />
+          <div>وب‌سایت رسمی</div>
+          <div class="muted">Multi-language (EN/FA) + SEO Optimized</div>
+          <div><span class="priority-badge priority-medium">متوسط</span></div>
+          <textarea class="note" placeholder="Domain / Design / Content / Launch"></textarea>
+        </div>
+
+        <div class="row" data-key="google-business" data-priority="low">
+          <input type="checkbox" />
+          <div>Google Business Profile</div>
+          <div class="muted">Local SEO - Toronto/Major Cities</div>
+          <div><span class="priority-badge priority-low">کم</span></div>
+          <textarea class="note" placeholder="Verification / Reviews / Updates"></textarea>
+        </div>
+
+        <div class="row" data-key="linkedin" data-priority="low">
+          <input type="checkbox" />
+          <div>LinkedIn Company Page</div>
+          <div class="muted">B2B Presence + Network Building</div>
+          <div><span class="priority-badge priority-low">کم</span></div>
+          <textarea class="note" placeholder="Profile / Content Strategy / Connections"></textarea>
+        </div>
+
+        <div class="row" data-key="brochure" data-priority="low">
+          <input type="checkbox" />
+          <div>بروشور و مواد معرفی</div>
+          <div class="muted">Pitch Deck + Service Catalog</div>
+          <div><span class="priority-badge priority-low">کم</span></div>
+          <textarea class="note" placeholder="Design / PDF / Print Ready"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 8 -->
+    <div class="section" data-section="phase8">
+      <div class="section-header" onclick="toggleSection('phase8')">
+        <div class="section-title">
+          <span class="section-badge">فاز ۸</span>
+          <h3>🌐 توسعه شبکه جهانی (Network Expansion)</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="section-progress"><span class="section-done">0</span> از <span class="section-total">0</span></span>
+          <span class="collapse-icon">▼</span>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="row" data-key="agents-eu" data-priority="optional">
+          <input type="checkbox" />
+          <div>نمایندگی اروپا</div>
+          <div class="muted">Partners در DE, NL, FR</div>
+          <div><span class="priority-badge priority-optional">اختیاری</span></div>
+          <textarea class="note" placeholder="Target Countries / Partners / Agreements"></textarea>
+        </div>
+
+        <div class="row" data-key="agents-asia" data-priority="optional">
+          <input type="checkbox" />
+          <div>نمایندگی آسیا</div>
+          <div class="muted">Partners در CN, JP, KR</div>
+          <div><span class="priority-badge priority-optional">اختیاری</span></div>
+          <textarea class="note" placeholder="Target Markets / Local Partners"></textarea>
+        </div>
+
+        <div class="row" data-key="cargoone" data-priority="optional">
+          <input type="checkbox" />
+          <div>Cargo.One Integration</div>
+          <div class="muted">Digital Air Freight Booking Platform</div>
+          <div><span class="priority-badge priority-optional">اختیاری</span></div>
+          <textarea class="note" placeholder="Account / API / Testing"></textarea>
+        </div>
+
+        <div class="row" data-key="freightos" data-priority="optional">
+          <input type="checkbox" />
+          <div>Freightos / Rate Aggregators</div>
+          <div class="muted">دسترسی به نرخ‌های جهانی</div>
+          <div><span class="priority-badge priority-optional">اختیاری</span></div>
+          <textarea class="note" placeholder="Platform / Integration / Testing"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 9 -->
+    <div class="section" data-section="phase9">
+      <div class="section-header" onclick="toggleSection('phase9')">
+        <div class="section-title">
+          <span class="section-badge">فاز ۹</span>
+          <h3>🤖 AI پیشرفته و اتوماسیون (Advanced AI)</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span class="section-progress"><span class="section-done">0</span> از <span class="section-total">0</span></span>
+          <span class="collapse-icon">▼</span>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="row" data-key="ai-route-optimization" data-priority="optional">
+          <input type="checkbox" />
+          <div>AI Route Optimization</div>
+          <div class="muted">ML-based بهینه‌سازی مسیر و carrier selection</div>
+          <div><span class="priority-badge priority-optional">اختیاری</span></div>
+          <textarea class="note" placeholder="Algorithm / Training Data / Performance"></textarea>
+        </div>
+
+        <div class="row" data-key="ai-demand-forecast" data-priority="optional">
+          <input type="checkbox" />
+          <div>پیش‌بینی تقاضا</div>
+          <div class="muted">Predictive Analytics برای Capacity Planning</div>
+          <div><span class="priority-badge priority-optional">اختیاری</span></div>
+          <textarea class="note" placeholder="Model / Data Sources / Accuracy"></textarea>
+        </div>
+
+        <div class="row" data-key="chatbot-support" data-priority="optional">
+          <input type="checkbox" />
+          <div>AI Chatbot پشتیبانی</div>
+          <div class="muted">24/7 Customer Support - Multi-language</div>
+          <div><span class="priority-badge priority-optional">اختیاری</span></div>
+          <textarea class="note" placeholder="Platform / Languages / Integration"></textarea>
+        </div>
+
+        <div class="row" data-key="ocr-documents" data-priority="optional">
+          <input type="checkbox" />
+          <div>OCR برای اسناد</div>
+          <div class="muted">Auto-extract از Invoice, AWB, Customs Docs</div>
+          <div><span class="priority-badge priority-optional">اختیاری</span></div>
+          <textarea class="note" placeholder="Solution / Accuracy / Integration"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>© 2025 Topping Courier – AI-Powered Network Orchestration Model</div>
+      <div class="save-status">
+        <span class="save-indicator" id="saveIndicator"></span>
+        <span id="savedAt">آخرین ذخیره: —</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var STORAGE_KEY = "topping_checklist_network_v1";
+    var autoSaveTimer;
+
+    var SCORES = {
+      critical: 100,
+      high: 50,
+      medium: 25,
+      low: 10,
+      optional: 5
+    };
+
+    function calculateScore() {
+      let totalScore = 0;
+      let maxScore = 0;
+      
+      document.querySelectorAll('.row').forEach(row => {
+        const priority = row.getAttribute('data-priority');
+        const cb = row.querySelector('input[type="checkbox"]');
+        const checked = cb ? cb.checked : false;
+        const score = SCORES[priority] || 0;
+        
+        maxScore += score;
+        if (checked) {
+          totalScore += score;
+        }
+      });
+      
+      return { totalScore, maxScore };
+    }
+
+    function updateProgress() {
+      const rows = document.querySelectorAll('.row');
+      const total = rows.length;
+      const completed = Array.from(rows).filter(r => {
+        const cb = r.querySelector('input[type="checkbox"]');
+        return cb && cb.checked;
+      }).length;
+
+      const { totalScore, maxScore } = calculateScore();
+      const scorePct = maxScore ? Math.round((totalScore/maxScore)*100) : 0;
+      
+      console.log('📊 Progress Update:', { total, completed, totalScore, maxScore, scorePct });
+
+      const counts = {
+        all: total,
+        critical: 0,
+        high: 0,
+        medium: 0,
+        low: 0,
+        optional: 0,
+        done: completed,
+        pending: total - completed
+      };
+
+      let criticalPending = 0;
+      let highPending = 0;
+
+      rows.forEach(row => {
+        const priority = row.getAttribute('data-priority');
+        const cb = row.querySelector('input[type="checkbox"]');
+        const checked = cb ? cb.checked : false;
+        
+        if (priority && counts.hasOwnProperty(priority)) {
+          counts[priority]++;
+        }
+        
+        if (!checked && priority === 'critical') criticalPending++;
+        if (!checked && priority === 'high') highPending++;
+      });
+
+      const progressBar = document.getElementById('progressBar');
+      const progressText = document.getElementById('progressText');
+      const totalItemsEl = document.getElementById('totalItems');
+      const completedItemsEl = document.getElementById('completedItems');
+      const criticalPendingEl = document.getElementById('criticalPending');
+      const highPendingEl = document.getElementById('highPending');
+      const totalScoreEl = document.getElementById('totalScore');
+
+      if (progressBar) progressBar.style.width = scorePct + '%';
+      if (progressText) progressText.textContent = scorePct + '%';
+      if (totalItemsEl) totalItemsEl.textContent = total;
+      if (completedItemsEl) completedItemsEl.textContent = completed;
+      if (criticalPendingEl) criticalPendingEl.textContent = criticalPending;
+      if (highPendingEl) highPendingEl.textContent = highPending;
+      if (totalScoreEl) totalScoreEl.textContent = totalScore + ' / ' + maxScore;
+
+      Object.keys(counts).forEach(key => {
+        const el = document.querySelector(`.count-${key}`);
+        if (el) el.textContent = counts[key];
+      });
+
+      document.querySelectorAll('.section').forEach(section => {
+        const sectionRows = section.querySelectorAll('.row');
+        const sectionTotal = sectionRows.length;
+        const sectionDone = Array.from(sectionRows).filter(r => {
+          const cb = r.querySelector('input[type="checkbox"]');
+          return cb && cb.checked;
+        }).length;
+        const doneEl = section.querySelector('.section-done');
+        const totalEl = section.querySelector('.section-total');
+        if (doneEl) doneEl.textContent = sectionDone;
+        if (totalEl) totalEl.textContent = sectionTotal;
+      });
+    }
+
+    function serialize() {
+      const data = {};
+      document.querySelectorAll('.row').forEach(row => {
+        const key = row.getAttribute('data-key');
+        if (!key) return;
+        
+        const cb = row.querySelector('input[type="checkbox"]');
+        const noteEl = row.querySelector('.note');
+        const checked = cb ? cb.checked : false;
+        const note = noteEl ? noteEl.value : '';
+        
+        data[key] = { checked, note };
+      });
+      return data;
+    }
+
+    function save(showIndicator = true) {
+      const payload = { ts: new Date().toISOString(), data: serialize() };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        
+        if (showIndicator) {
+          const indicator = document.getElementById('saveIndicator');
+          if (indicator) {
+            indicator.classList.add('saving');
+            setTimeout(() => indicator.classList.remove('saving'), 500);
+          }
+        }
+        
+        const savedAtEl = document.getElementById('savedAt');
+        if (savedAtEl) {
+          savedAtEl.textContent = 'آخرین ذخیره: ' + new Date().toLocaleString('fa-IR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+        }
+      } catch (e) {
+        console.error('خطا در ذخیره‌سازی:', e);
+      }
+    }
+
+    function load() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        updateProgress();
+        return;
+      }
+      
+      try {
+        const { data, ts } = JSON.parse(raw);
+        Object.entries(data || {}).forEach(([key, val]) => {
+          const row = document.querySelector(`.row[data-key="${key}"]`);
+          if (!row) return;
+          
+          const cb = row.querySelector('input[type="checkbox"]');
+          const noteEl = row.querySelector('.note');
+          
+          if (cb && val.checked !== undefined) {
+            cb.checked = !!val.checked;
+          }
+          if (noteEl && val.note !== undefined) {
+            noteEl.value = val.note || '';
+          }
+        });
+        
+        const savedAtEl = document.getElementById('savedAt');
+        if (savedAtEl && ts) {
+          savedAtEl.textContent = 'آخرین ذخیره: ' + new Date(ts).toLocaleString('fa-IR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+        }
+      } catch (e) {
+        console.error('خطا در بارگذاری:', e);
+      }
+      
+      updateProgress();
+    }
+
+    function autoSave() {
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        save(true);
+      }, 2000);
+    }
+
+    function toggleSection(sectionId) {
+      const section = document.querySelector(`.section[data-section="${sectionId}"]`);
+      if (!section) return;
+      
+      const content = section.querySelector('.section-content');
+      const icon = section.querySelector('.collapse-icon');
+      
+      if (content) content.classList.toggle('collapsed');
+      if (icon) icon.textContent = content && content.classList.contains('collapsed') ? '◀' : '▼';
+    }
+
+    function filterRows(filterType) {
+      const rows = document.querySelectorAll('.row');
+      const searchBox = document.getElementById('searchBox');
+      const searchTerm = searchBox ? searchBox.value.toLowerCase() : '';
+
+      rows.forEach(row => {
+        const priority = row.getAttribute('data-priority');
+        const cb = row.querySelector('input[type="checkbox"]');
+        const checked = cb ? cb.checked : false;
+        const text = row.textContent.toLowerCase();
+        
+        let showByFilter = filterType === 'all' ||
+                          (filterType === 'done' && checked) ||
+                          (filterType === 'pending' && !checked) ||
+                          (filterType === priority);
+        
+        let showBySearch = !searchTerm || text.includes(searchTerm);
+        
+        row.classList.toggle('hidden', !(showByFilter && showBySearch));
+      });
+    }
+
+    function toCSV() {
+      const rows = [['key', 'title', 'priority', 'checked', 'score', 'note']];
+      document.querySelectorAll('.row').forEach(row => {
+        const key = row.getAttribute('data-key') || '';
+        const titleEl = row.children[1];
+        const title = titleEl ? titleEl.textContent.trim() : '';
+        const priority = row.getAttribute('data-priority') || '';
+        const cb = row.querySelector('input[type="checkbox"]');
+        const checked = cb && cb.checked ? '1' : '0';
+        const score = checked === '1' ? (SCORES[priority] || 0) : 0;
+        const noteEl = row.querySelector('.note');
+        const note = noteEl ? noteEl.value.replace(/\n/g, ' ') : '';
+        rows.push([key, title, priority, checked, score.toString(), note]);
+      });
+      return rows.map(r => r.map(x => `"${x.toString().replace(/"/g, '""')}"`).join(',')).join('\n');
+    }
+
+    function download(filename, content, type = 'text/plain') {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function moveCompletedToTodo(taskTitle, taskNote, taskPriority) {
+      try {
+        const TODO_KEY = 'topping_todo_tasks';
+        let todos = [];
+        
+        const raw = localStorage.getItem(TODO_KEY);
+        if (raw) {
+          todos = JSON.parse(raw);
+        }
+        
+        // Check if task already exists
+        const exists = todos.some(t => t.title === taskTitle);
+        if (exists) {
+          console.log('⚠️ Task already exists in To-Do');
+          return;
+        }
+        
+        const newTask = {
+          id: Date.now(),
+          title: taskTitle,
+          description: taskNote || '',
+          priority: taskPriority === 'critical' ? 'urgent' : 
+                    taskPriority === 'high' ? 'important' : 'normal',
+          category: 'logistics',
+          completed: false,  // Set as pending task
+          createdAt: new Date().toISOString()
+        };
+        
+        todos.unshift(newTask);
+        localStorage.setItem(TODO_KEY, JSON.stringify(todos));
+        
+        console.log('✅ Task moved to To-Do:', taskTitle);
+      } catch (e) {
+        console.error('خطا در انتقال به To-Do:', e);
+      }
+    }
+
+    // Initialize immediately (for SPA loading)
+    function initChecklistPage() {
+      console.log('🚀 Initializing Checklist Page...');
+      document.addEventListener('input', (e) => {
+        if (e.target.matches('input[type="checkbox"]')) {
+          const checkbox = e.target;
+          const row = checkbox.closest('.row');
+          
+          if (checkbox.checked && row) {
+            const titleEl = row.children[1];
+            const noteEl = row.querySelector('.note');
+            const priority = row.getAttribute('data-priority');
+            
+            const title = titleEl ? titleEl.textContent.trim() : '';
+            const note = noteEl ? noteEl.value : '';
+            
+            moveCompletedToTodo(title, note, priority);
+          }
+          
+          updateProgress();
+          autoSave();
+        } else if (e.target.matches('.note')) {
+          updateProgress();
+          autoSave();
+        }
+      });
+
+      const searchBox = document.getElementById('searchBox');
+      if (searchBox) {
+        searchBox.addEventListener('input', () => {
+          const activeBtn = document.querySelector('.filter-btn.active');
+          const activeFilter = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+          filterRows(activeFilter);
+        });
+      }
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.getAttribute('data-filter');
+          if (filter) filterRows(filter);
+        });
+      });
+
+      const saveBtn = document.getElementById('saveBtn');
+      if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+          save(true);
+          updateProgress();
+        });
+      }
+
+      const clearBtn = document.getElementById('clearAll');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          if (!confirm('همه تیک‌ها و یادداشت‌ها پاک شود؟')) return;
+          
+          try {
+            localStorage.removeItem(STORAGE_KEY);
+            document.querySelectorAll('.row input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.querySelectorAll('.row .note').forEach(n => n.value = '');
+            updateProgress();
+            
+            const savedAtEl = document.getElementById('savedAt');
+            if (savedAtEl) savedAtEl.textContent = 'آخرین ذخیره: —';
+          } catch (e) {
+            console.error('خطا در پاک‌سازی:', e);
+          }
+        });
+      }
+
+      const exportJsonBtn = document.getElementById('exportJson');
+      if (exportJsonBtn) {
+        exportJsonBtn.addEventListener('click', () => {
+          const { totalScore, maxScore } = calculateScore();
+          const payload = {
+            generatedAt: new Date().toISOString(),
+            model: 'Network-Based Outsourcing',
+            score: { total: totalScore, max: maxScore },
+            data: serialize()
+          };
+          download('topping-network-checklist.json', JSON.stringify(payload, null, 2), 'application/json');
+        });
+      }
+
+      const exportCsvBtn = document.getElementById('exportCsv');
+      if (exportCsvBtn) {
+        exportCsvBtn.addEventListener('click', () => {
+          const csv = toCSV();
+          download('topping-network-checklist.csv', csv, 'text/csv');
+        });
+      }
+
+      load();
+    }
+    
+    // Run initialization
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initChecklistPage);
+    } else {
+      initChecklistPage();
+    }
+  </script>
+</body>
+</html>

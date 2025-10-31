@@ -1,0 +1,482 @@
+<div class="proposal-page">
+  <style>
+    .proposal-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .proposal-header {
+      background: linear-gradient(135deg, #1a1a22 0%, #121218 100%);
+      border: 2px solid #d4af37;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proposal-header::before {
+      content: "🧠";
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-size: 6rem;
+      opacity: 0.08;
+    }
+
+    .proposal-title {
+      font-size: 2rem;
+      color: #d4af37;
+      margin-bottom: 15px;
+    }
+
+    .proposal-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: #b7b7c7;
+      font-size: 0.95rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .executive-summary {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.02));
+      border: 1px solid #d4af37;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+
+    .summary-title {
+      font-size: 1.3rem;
+      color: #d4af37;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .summary-text {
+      color: #e9e9ef;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .section {
+      background: #121218;
+      border: 1px solid #2a2a36;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      color: #d4af37;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #2a2a36;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-content {
+      color: #b7b7c7;
+      line-height: 1.7;
+    }
+
+    .section-content p {
+      margin-bottom: 15px;
+    }
+
+    .section-content ul, .section-content ol {
+      padding-right: 25px;
+      margin-bottom: 15px;
+    }
+
+    .section-content li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .highlight-box {
+      background: rgba(212, 175, 55, 0.05);
+      border-right: 3px solid #d4af37;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
+    .highlight-box strong {
+      color: #d4af37;
+    }
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .objective-card {
+      background: #0b0b0f;
+      border: 1px solid #2a2a36;
+      border-radius: 10px;
+      padding: 20px;
+      transition: all 0.3s;
+    }
+
+    .objective-card:hover {
+      border-color: #d4af37;
+      transform: translateY(-3px);
+    }
+
+    .objective-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .objective-title {
+      color: #e9e9ef;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .objective-desc {
+      color: #b7b7c7;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .timeline {
+      position: relative;
+      padding-right: 30px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 30px;
+      padding-right: 30px;
+      border-right: 2px solid #2a2a36;
+    }
+
+    .timeline-item:last-child {
+      border-right: none;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      right: -9px;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      background: #d4af37;
+      border-radius: 50%;
+      border: 3px solid #121218;
+    }
+
+    .timeline-content {
+      background: #0b0b0f;
+      border: 1px solid #2a2a36;
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    .timeline-date {
+      color: #d4af37;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .timeline-title {
+      color: #e9e9ef;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .timeline-desc {
+      color: #b7b7c7;
+      font-size: 0.9rem;
+    }
+
+    .budget-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .budget-table th,
+    .budget-table td {
+      padding: 15px;
+      text-align: right;
+      border-bottom: 1px solid #2a2a36;
+    }
+
+    .budget-table th {
+      background: #0b0b0f;
+      color: #d4af37;
+      font-weight: 600;
+    }
+
+    .budget-table td {
+      color: #b7b7c7;
+    }
+
+    .budget-table tr:hover {
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    .budget-total {
+      background: rgba(212, 175, 55, 0.1) !important;
+      font-weight: bold;
+      color: #d4af37 !important;
+    }
+
+    @media (max-width: 768px) {
+      .proposal-title {
+        font-size: 1.5rem;
+      }
+
+      .objectives-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        padding-right: 20px;
+      }
+    }
+  </style>
+
+  <!-- Header -->
+  <div class="proposal-header">
+    <h1 class="proposal-title">🧠 پروپوزال سیستم NAS</h1>
+    <div class="proposal-meta">
+      <span class="meta-item">📅 تاریخ: فروردین 1404</span>
+      <span class="meta-item">👤 تهیه‌کننده: تیم تحقیق و توسعه</span>
+      <span class="meta-item">📊 نسخه: 2.0</span>
+      <span class="meta-item">🔒 محرمانه</span>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="executive-summary">
+    <h2 class="summary-title">📋 خلاصه اجرایی</h2>
+    <p class="summary-text">
+      سیستم NAS (Network-Adaptive System) یک راهکار نوآورانه برای بهینه‌سازی شبکه‌های لجستیک و حمل‌ونقل است که با استفاده از هوش مصنوعی و یادگیری ماشین، قادر به تطبیق پویا با تغییرات شبکه و بهبود مستمر عملکرد می‌باشد. این سیستم می‌تواند هزینه‌های عملیاتی را تا 25% کاهش داده و کارایی را تا 40% افزایش دهد.
+    </p>
+  </div>
+
+  <!-- Problem Statement -->
+  <div class="section">
+    <h2 class="section-title">❓ تعریف مسئله</h2>
+    <div class="section-content">
+      <p>
+        صنعت لجستیک و حمل‌ونقل با چالش‌های متعددی روبرو است که عبارتند از:
+      </p>
+      <ul>
+        <li><strong>عدم بهینگی مسیرها:</strong> استفاده از مسیرهای سنتی بدون در نظر گرفتن شرایط لحظه‌ای</li>
+        <li><strong>هزینه‌های بالای عملیاتی:</strong> مصرف بالای سوخت و زمان به دلیل مسیریابی ناکارآمد</li>
+        <li><strong>عدم انعطاف‌پذیری:</strong> ناتوانی در واکنش سریع به تغییرات و رویدادهای غیرمنتظره</li>
+        <li><strong>کمبود دید کلی:</strong> فقدان سیستم یکپارچه برای مدیریت و نظارت بر کل شبکه</li>
+        <li><strong>تاخیرهای مکرر:</strong> عدم پیش‌بینی دقیق زمان تحویل و مدیریت ضعیف زمان</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>آمار:</strong> بر اساس تحقیقات، شرکت‌های لجستیک سالانه حدود 30% از بودجه خود را به دلیل ناکارآمدی در مسیریابی و برنامه‌ریزی از دست می‌دهند.
+      </div>
+    </div>
+  </div>
+
+  <!-- Proposed Solution -->
+  <div class="section">
+    <h2 class="section-title">💡 راهکار پیشنهادی</h2>
+    <div class="section-content">
+      <p>
+        سیستم NAS یک پلتفرم جامع و هوشمند است که شامل اجزای زیر می‌باشد:
+      </p>
+      <ol>
+        <li><strong>موتور بهینه‌سازی مسیر:</strong> استفاده از الگوریتم‌های پیشرفته برای یافتن بهترین مسیرها</li>
+        <li><strong>سیستم پیش‌بینی تقاضا:</strong> پیش‌بینی حجم سفارشات با استفاده از ML</li>
+        <li><strong>مدیریت ناوگان هوشمند:</strong> تخصیص بهینه وسایل نقلیه به سفارشات</li>
+        <li><strong>نظارت و کنترل لحظه‌ای:</strong> ردیابی real-time مرسولات و وسایل نقلیه</li>
+        <li><strong>تحلیل و گزارش‌دهی:</strong> داشبوردهای تحلیلی برای تصمیم‌گیری بهتر</li>
+      </ol>
+      <div class="highlight-box">
+        <strong>نوآوری کلیدی:</strong> قابلیت یادگیری خودکار از الگوهای گذشته و بهبود مستمر عملکرد بدون نیاز به دخالت انسانی
+      </div>
+    </div>
+  </div>
+
+  <!-- Objectives -->
+  <div class="section">
+    <h2 class="section-title">🎯 اهداف پروژه</h2>
+    <div class="objectives-grid">
+      <div class="objective-card">
+        <div class="objective-icon">⚡</div>
+        <div class="objective-title">افزایش سرعت</div>
+        <div class="objective-desc">کاهش 30% زمان تحویل مرسولات</div>
+      </div>
+      <div class="objective-card">
+        <div class="objective-icon">💰</div>
+        <div class="objective-title">کاهش هزینه</div>
+        <div class="objective-desc">صرفه‌جویی 25% در هزینه‌های عملیاتی</div>
+      </div>
+      <div class="objective-card">
+        <div class="objective-icon">📈</div>
+        <div class="objective-title">بهبود کارایی</div>
+        <div class="objective-desc">افزایش 40% در بهره‌وری کلی</div>
+      </div>
+      <div class="objective-card">
+        <div class="objective-icon">😊</div>
+        <div class="objective-title">رضایت مشتری</div>
+        <div class="objective-desc">ارتقای تجربه کاربری به 95%</div>
+      </div>
+      <div class="objective-card">
+        <div class="objective-icon">🌍</div>
+        <div class="objective-title">مقیاس‌پذیری</div>
+        <div class="objective-desc">پشتیبانی از شبکه‌های جهانی</div>
+      </div>
+      <div class="objective-card">
+        <div class="objective-icon">🔒</div>
+        <div class="objective-title">امنیت داده</div>
+        <div class="objective-desc">حفاظت کامل از اطلاعات</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section">
+    <h2 class="section-title">📅 برنامه زمانی اجرا</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">فروردین - اردیبهشت 1404</div>
+          <div class="timeline-title">فاز 1: تحقیق و طراحی</div>
+          <div class="timeline-desc">تحلیل نیازمندی‌ها، طراحی معماری سیستم و انتخاب تکنولوژی‌ها</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">خرداد - مرداد 1404</div>
+          <div class="timeline-title">فاز 2: توسعه MVP</div>
+          <div class="timeline-desc">پیاده‌سازی نسخه اولیه با قابلیت‌های اصلی</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">شهریور - مهر 1404</div>
+          <div class="timeline-title">فاز 3: تست و بهینه‌سازی</div>
+          <div class="timeline-desc">آزمایش در محیط واقعی و رفع باگ‌ها</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">آبان - آذر 1404</div>
+          <div class="timeline-title">فاز 4: راه‌اندازی تدریجی</div>
+          <div class="timeline-desc">استقرار در مناطق محدود و جمع‌آوری بازخورد</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">دی 1404 به بعد</div>
+          <div class="timeline-title">فاز 5: توسعه کامل</div>
+          <div class="timeline-desc">گسترش به تمام شبکه و افزودن قابلیت‌های جدید</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Budget -->
+  <div class="section">
+    <h2 class="section-title">💵 بودجه پروژه</h2>
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th>ردیف</th>
+          <th>بخش</th>
+          <th>توضیحات</th>
+          <th>هزینه (میلیون تومان)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>تحقیق و توسعه</td>
+          <td>تیم R&D، تحلیل و طراحی</td>
+          <td>500</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>زیرساخت فنی</td>
+          <td>سرورها، دیتابیس، CDN</td>
+          <td>800</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>توسعه نرم‌افزار</td>
+          <td>تیم برنامه‌نویسی و DevOps</td>
+          <td>1,200</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>هوش مصنوعی و ML</td>
+          <td>مدل‌سازی، آموزش و بهینه‌سازی</td>
+          <td>600</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>تست و کیفیت</td>
+          <td>QA، تست امنیتی، بهینه‌سازی</td>
+          <td>400</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>مستندات و آموزش</td>
+          <td>راهنماها، ویدیوها، دوره‌های آموزشی</td>
+          <td>200</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>بازاریابی و راه‌اندازی</td>
+          <td>تبلیغات، برندینگ، لانچ</td>
+          <td>300</td>
+        </tr>
+        <tr class="budget-total">
+          <td colspan="3"><strong>جمع کل</strong></td>
+          <td><strong>4,000</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Expected ROI -->
+  <div class="section">
+    <h2 class="section-title">📊 بازگشت سرمایه (ROI)</h2>
+    <div class="section-content">
+      <p>
+        بر اساس تحلیل‌های انجام شده، انتظار می‌رود پروژه NAS در مدت 18 ماه بازگشت سرمایه داشته باشد:
+      </p>
+      <ul>
+        <li><strong>سال اول:</strong> صرفه‌جویی 2,000 میلیون تومان در هزینه‌های عملیاتی</li>
+        <li><strong>سال دوم:</strong> افزایش 3,500 میلیون تومان درآمد از بهبود خدمات</li>
+        <li><strong>سال سوم و بعد:</strong> رشد پایدار 25% سالانه</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>نتیجه:</strong> با سرمایه‌گذاری 4,000 میلیون تومان، انتظار می‌رود تا پایان سال دوم، سود خالص 1,500 میلیون تومان حاصل شود.
+      </div>
+    </div>
+  </div>
+</div>

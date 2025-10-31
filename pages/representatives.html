@@ -1,0 +1,564 @@
+<div class="representatives-page">
+  <style>
+    .representatives-page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .rep-header {
+      background: linear-gradient(135deg, #1a1a22 0%, #121218 100%);
+      border: 2px solid #d4af37;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+
+    .rep-title {
+      font-size: 2rem;
+      color: #d4af37;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .regions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .region-card {
+      background: #121218;
+      border: 1px solid #2a2a36;
+      border-radius: 12px;
+      padding: 25px;
+      transition: all 0.3s;
+    }
+
+    .region-card:hover {
+      border-color: #d4af37;
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+      transform: translateY(-5px);
+    }
+
+    .region-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #2a2a36;
+    }
+
+    .region-flag {
+      font-size: 3rem;
+    }
+
+    .region-info {
+      flex: 1;
+    }
+
+    .region-name {
+      font-size: 1.4rem;
+      color: #d4af37;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .region-subtitle {
+      color: #b7b7c7;
+      font-size: 0.9rem;
+    }
+
+    .rep-list {
+      display: grid;
+      gap: 15px;
+    }
+
+    .rep-item {
+      background: #0b0b0f;
+      border: 1px solid #2a2a36;
+      border-radius: 10px;
+      padding: 18px;
+      transition: all 0.2s;
+    }
+
+    .rep-item:hover {
+      border-color: #d4af37;
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    .rep-name {
+      font-size: 1.1rem;
+      color: #e9e9ef;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rep-role {
+      color: #d4af37;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .rep-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #b7b7c7;
+      font-size: 0.9rem;
+    }
+
+    .contact-icon {
+      width: 20px;
+      text-align: center;
+    }
+
+    .contact-link {
+      color: #b7b7c7;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover {
+      color: #d4af37;
+    }
+
+    .stats-section {
+      background: #121218;
+      border: 1px solid #2a2a36;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .stat-box {
+      background: #0b0b0f;
+      border: 1px solid #2a2a36;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .stat-box:hover {
+      border-color: #d4af37;
+      transform: translateY(-3px);
+    }
+
+    .stat-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #d4af37;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      color: #b7b7c7;
+      font-size: 0.9rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: #d4af37;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #121218;
+      border-radius: 10px;
+      border-left: 4px solid #d4af37;
+    }
+
+    @media (max-width: 768px) {
+      .rep-title {
+        font-size: 1.5rem;
+      }
+
+      .regions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .region-flag {
+        font-size: 2rem;
+      }
+    }
+  </style>
+
+  <!-- Header -->
+  <div class="rep-header">
+    <h1 class="rep-title">🌐 نمایندگان و همکاران</h1>
+    <p style="color: #b7b7c7; margin-top: 10px;">
+      شبکه جهانی نمایندگان Topping Courier در سراسر دنیا
+    </p>
+  </div>
+
+  <!-- Statistics -->
+  <div class="stats-section">
+    <h2 class="section-title">📊 آمار شبکه جهانی</h2>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-icon">🌍</div>
+        <div class="stat-value">25</div>
+        <div class="stat-label">کشور فعال</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">👥</div>
+        <div class="stat-value">48</div>
+        <div class="stat-label">نماینده رسمی</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">🏢</div>
+        <div class="stat-value">120+</div>
+        <div class="stat-label">شرکای تجاری</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">📦</div>
+        <div class="stat-value">50K+</div>
+        <div class="stat-label">مرسوله ماهانه</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Representatives by Region -->
+  <h2 class="section-title">🗺️ نمایندگان بر اساس منطقه</h2>
+  <div class="regions-grid">
+    <!-- Middle East -->
+    <div class="region-card">
+      <div class="region-header">
+        <div class="region-flag">🇮🇷</div>
+        <div class="region-info">
+          <div class="region-name">خاورمیانه</div>
+          <div class="region-subtitle">ایران، ترکیه، امارات</div>
+        </div>
+      </div>
+      <div class="rep-list">
+        <div class="rep-item">
+          <div class="rep-name">👤 علی محمدی</div>
+          <div class="rep-role">مدیر منطقه‌ای - ایران</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:ali.mohammadi@topping.com" class="contact-link">ali.mohammadi@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+98 912 345 6789</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 Mehmet Yılmaz</div>
+          <div class="rep-role">نماینده ترکیه</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:mehmet@topping.com" class="contact-link">mehmet@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+90 532 123 4567</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 Ahmed Al-Mansoori</div>
+          <div class="rep-role">نماینده امارات</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:ahmed@topping.com" class="contact-link">ahmed@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+971 50 123 4567</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Europe -->
+    <div class="region-card">
+      <div class="region-header">
+        <div class="region-flag">🇪🇺</div>
+        <div class="region-info">
+          <div class="region-name">اروپا</div>
+          <div class="region-subtitle">آلمان، فرانسه، انگلستان</div>
+        </div>
+      </div>
+      <div class="rep-list">
+        <div class="rep-item">
+          <div class="rep-name">👤 Hans Mueller</div>
+          <div class="rep-role">مدیر منطقه‌ای - آلمان</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:hans@topping.com" class="contact-link">hans@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+49 170 123 4567</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 Marie Dubois</div>
+          <div class="rep-role">نماینده فرانسه</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:marie@topping.com" class="contact-link">marie@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+33 6 12 34 56 78</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 James Smith</div>
+          <div class="rep-role">نماینده انگلستان</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:james@topping.com" class="contact-link">james@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+44 7700 123456</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asia Pacific -->
+    <div class="region-card">
+      <div class="region-header">
+        <div class="region-flag">🌏</div>
+        <div class="region-info">
+          <div class="region-name">آسیا و اقیانوسیه</div>
+          <div class="region-subtitle">چین، ژاپن، استرالیا</div>
+        </div>
+      </div>
+      <div class="rep-list">
+        <div class="rep-item">
+          <div class="rep-name">👤 Li Wei</div>
+          <div class="rep-role">مدیر منطقه‌ای - چین</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:liwei@topping.com" class="contact-link">liwei@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+86 138 1234 5678</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 Yuki Tanaka</div>
+          <div class="rep-role">نماینده ژاپن</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:yuki@topping.com" class="contact-link">yuki@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+81 90 1234 5678</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 Michael Brown</div>
+          <div class="rep-role">نماینده استرالیا</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:michael@topping.com" class="contact-link">michael@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+61 412 345 678</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Americas -->
+    <div class="region-card">
+      <div class="region-header">
+        <div class="region-flag">🌎</div>
+        <div class="region-info">
+          <div class="region-name">قاره آمریکا</div>
+          <div class="region-subtitle">آمریکا، کانادا، برزیل</div>
+        </div>
+      </div>
+      <div class="rep-list">
+        <div class="rep-item">
+          <div class="rep-name">👤 John Anderson</div>
+          <div class="rep-role">مدیر منطقه‌ای - آمریکا</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:john@topping.com" class="contact-link">john@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+1 555 123 4567</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 Sophie Martin</div>
+          <div class="rep-role">نماینده کانادا</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:sophie@topping.com" class="contact-link">sophie@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+1 416 123 4567</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 Carlos Silva</div>
+          <div class="rep-role">نماینده برزیل</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:carlos@topping.com" class="contact-link">carlos@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+55 11 91234 5678</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Africa -->
+    <div class="region-card">
+      <div class="region-header">
+        <div class="region-flag">🌍</div>
+        <div class="region-info">
+          <div class="region-name">آفریقا</div>
+          <div class="region-subtitle">مصر، آفریقای جنوبی، نیجریه</div>
+        </div>
+      </div>
+      <div class="rep-list">
+        <div class="rep-item">
+          <div class="rep-name">👤 Omar Hassan</div>
+          <div class="rep-role">مدیر منطقه‌ای - مصر</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:omar@topping.com" class="contact-link">omar@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+20 100 123 4567</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 David Nkosi</div>
+          <div class="rep-role">نماینده آفریقای جنوبی</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:david@topping.com" class="contact-link">david@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+27 82 123 4567</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 Chioma Okafor</div>
+          <div class="rep-role">نماینده نیجریه</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:chioma@topping.com" class="contact-link">chioma@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+234 803 123 4567</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Central Asia -->
+    <div class="region-card">
+      <div class="region-header">
+        <div class="region-flag">🏔️</div>
+        <div class="region-info">
+          <div class="region-name">آسیای مرکزی</div>
+          <div class="region-subtitle">قزاقستان، ازبکستان</div>
+        </div>
+      </div>
+      <div class="rep-list">
+        <div class="rep-item">
+          <div class="rep-name">👤 Nursultan Aliyev</div>
+          <div class="rep-role">نماینده قزاقستان</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:nursultan@topping.com" class="contact-link">nursultan@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+7 701 123 4567</span>
+            </div>
+          </div>
+        </div>
+        <div class="rep-item">
+          <div class="rep-name">👤 Aziz Karimov</div>
+          <div class="rep-role">نماینده ازبکستان</div>
+          <div class="rep-contact">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <a href="mailto:aziz@topping.com" class="contact-link">aziz@topping.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span>+998 90 123 4567</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

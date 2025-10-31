@@ -1,0 +1,766 @@
+<div class="todo-page">
+  <style>
+    .todo-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .todo-header {
+      background: linear-gradient(135deg, #1a1a22 0%, #121218 100%);
+      border: 2px solid #d4af37;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+
+    .todo-title {
+      font-size: 2rem;
+      color: #d4af37;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .add-task-section {
+      background: #121218;
+      border: 1px solid #2a2a36;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .task-input {
+      padding: 12px 16px;
+      background: #0b0b0f;
+      border: 1px solid #2a2a36;
+      border-radius: 8px;
+      color: #e9e9ef;
+      font-size: 1rem;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .task-input:focus {
+      outline: none;
+      border-color: #d4af37;
+    }
+
+    .task-textarea {
+      padding: 12px 16px;
+      background: #0b0b0f;
+      border: 1px solid #2a2a36;
+      border-radius: 8px;
+      color: #e9e9ef;
+      font-size: 0.95rem;
+      font-family: 'Vazirmatn', sans-serif;
+      resize: vertical;
+      min-height: 80px;
+      margin-bottom: 15px;
+    }
+
+    .task-textarea:focus {
+      outline: none;
+      border-color: #d4af37;
+    }
+
+    .task-options {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .priority-select, .category-select {
+      padding: 10px 16px;
+      background: #0b0b0f;
+      border: 1px solid #2a2a36;
+      border-radius: 8px;
+      color: #e9e9ef;
+      cursor: pointer;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .add-btn {
+      padding: 12px 30px;
+      background: #d4af37;
+      color: #0b0b0f;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .add-btn:hover {
+      background: #ffd76a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+
+    .tasks-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .summary-card {
+      background: #121218;
+      border: 1px solid #2a2a36;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-3px);
+      border-color: #d4af37;
+    }
+
+    .summary-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .summary-count {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #d4af37;
+      margin-bottom: 5px;
+    }
+
+    .summary-label {
+      color: #b7b7c7;
+      font-size: 0.9rem;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      background: #121218;
+      border: 1px solid #2a2a36;
+      border-radius: 8px;
+      color: #b7b7c7;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      border-color: #d4af37;
+      color: #d4af37;
+    }
+
+    .tab-btn.active {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: #d4af37;
+      color: #d4af37;
+    }
+
+    .tasks-container {
+      display: grid;
+      gap: 15px;
+    }
+
+    .task-card {
+      background: #121218;
+      border: 1px solid #2a2a36;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .task-card:hover {
+      border-color: #d4af37;
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.1);
+    }
+
+    .task-card.completed {
+      opacity: 0.6;
+      background: rgba(76, 175, 80, 0.05);
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+
+    .task-select-checkbox {
+      width: 20px !important;
+      height: 20px !important;
+      min-width: 20px !important;
+      min-height: 20px !important;
+      cursor: pointer !important;
+      accent-color: #d4af37 !important;
+      flex-shrink: 0 !important;
+      z-index: 10 !important;
+      position: relative !important;
+      pointer-events: auto !important;
+      margin: 0 !important;
+      margin-left: 10px !important;
+      display: block !important;
+    }
+
+    .task-title-text {
+      font-size: 1.15rem;
+      color: #e9e9ef;
+      font-weight: 500;
+      flex: 1;
+    }
+
+    .task-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid #2a2a36;
+      background: #0b0b0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-icon:hover {
+      border-color: #d4af37;
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .task-description {
+      color: #b7b7c7;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .task-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .task-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .task-badge {
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-urgent {
+      background: rgba(255, 68, 68, 0.2);
+      color: #ff4444;
+      border: 1px solid #ff4444;
+    }
+
+    .badge-important {
+      background: rgba(255, 152, 0, 0.2);
+      color: #ff9800;
+      border: 1px solid #ff9800;
+    }
+
+    .badge-normal {
+      background: rgba(76, 175, 80, 0.2);
+      color: #4caf50;
+      border: 1px solid #4caf50;
+    }
+
+    .task-date {
+      color: #b7b7c7;
+      font-size: 0.85rem;
+    }
+
+    .complete-checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #2a2a36;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0b0b0f;
+      transition: all 0.2s;
+    }
+
+    .complete-checkbox:hover {
+      border-color: #d4af37;
+    }
+
+    .complete-checkbox.checked {
+      background: #d4af37;
+      border-color: #d4af37;
+    }
+
+    .complete-checkbox.checked::after {
+      content: "✓";
+      color: #0b0b0f;
+      font-weight: bold;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #b7b7c7;
+    }
+
+    .empty-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .todo-title {
+        font-size: 1.5rem;
+      }
+
+      .input-group {
+        grid-template-columns: 1fr;
+      }
+
+      .task-options {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .add-btn {
+        justify-content: center;
+      }
+    }
+  </style>
+
+  <!-- Header -->
+  <div class="todo-header">
+    <h1 class="todo-title">📝 کارهای انجام نشده</h1>
+    <p style="color: #b7b7c7; margin-top: 10px;">مدیریت وظایف و برنامه‌ریزی کارها</p>
+  </div>
+
+  <!-- Add Task Section -->
+  <div class="add-task-section">
+    <h3 style="color: #d4af37; margin-bottom: 15px;">➕ افزودن کار جدید</h3>
+    <div class="input-group">
+      <input type="text" id="taskTitle" class="task-input" placeholder="عنوان کار...">
+    </div>
+    <textarea id="taskDescription" class="task-textarea" placeholder="توضیحات (اختیاری)..."></textarea>
+    <div class="task-options">
+      <select id="taskPriority" class="priority-select">
+        <option value="normal">🟢 عادی</option>
+        <option value="important">🟠 مهم</option>
+        <option value="urgent">🔴 فوری</option>
+      </select>
+      <select id="taskCategory" class="category-select">
+        <option value="general">عمومی</option>
+        <option value="development">توسعه</option>
+        <option value="design">طراحی</option>
+        <option value="marketing">بازاریابی</option>
+        <option value="meeting">جلسه</option>
+        <option value="research">تحقیق</option>
+      </select>
+      <button class="add-btn" onclick="addTask()">
+        <span>➕</span>
+        <span>افزودن کار</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="tasks-summary">
+    <div class="summary-card">
+      <div class="summary-icon">📋</div>
+      <div class="summary-count" id="totalTasks">0</div>
+      <div class="summary-label">کل کارها</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">⏳</div>
+      <div class="summary-count" id="pendingTasks">0</div>
+      <div class="summary-label">در انتظار</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">✅</div>
+      <div class="summary-count" id="completedTasks">0</div>
+      <div class="summary-label">انجام شده</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">🔥</div>
+      <div class="summary-count" id="urgentTasks">0</div>
+      <div class="summary-label">فوری</div>
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="filter-tabs">
+    <button class="tab-btn active" data-filter="all">همه</button>
+    <button class="tab-btn" data-filter="pending">در انتظار</button>
+    <button class="tab-btn" data-filter="completed">انجام شده</button>
+    <button class="tab-btn" data-filter="urgent">فوری</button>
+    <button class="tab-btn" data-filter="important">مهم</button>
+  </div>
+
+  <!-- Tasks Container -->
+  <div id="tasksContainer" class="tasks-container"></div>
+
+  <script>
+    var TODO_KEY = 'topping_todo_tasks';
+    var tasks = JSON.parse(localStorage.getItem(TODO_KEY) || '[]');
+
+    // Define functions first
+    function addTask() {
+      const title = document.getElementById('taskTitle').value.trim();
+      const description = document.getElementById('taskDescription').value.trim();
+      const priority = document.getElementById('taskPriority').value;
+      const category = document.getElementById('taskCategory').value;
+
+      if (!title) {
+        alert('⚠️ لطفاً عنوان کار را وارد کنید');
+        return;
+      }
+
+      const task = {
+        id: Date.now().toString(),
+        title,
+        description,
+        priority,
+        category,
+        completed: false,
+        createdAt: new Date().toISOString()
+      };
+
+      tasks.unshift(task);
+      saveTasks();
+      renderTasks();
+
+      // Clear inputs
+      document.getElementById('taskTitle').value = '';
+      document.getElementById('taskDescription').value = '';
+      document.getElementById('taskPriority').value = 'normal';
+      document.getElementById('taskCategory').value = 'general';
+    }
+
+    function toggleTask(id) {
+      const task = tasks.find(t => t.id === id);
+      if (task) {
+        task.completed = !task.completed;
+        saveTasks();
+        renderTasks();
+      }
+    }
+
+    function deleteTask(id) {
+      console.log('🗑️ deleteTask called with id:', id);
+      if (confirm('آیا مطمئن هستید که می‌خواهید این کار را حذف کنید؟')) {
+        tasks = JSON.parse(localStorage.getItem(TODO_KEY) || '[]');
+        tasks = tasks.filter(t => t.id.toString() !== id.toString());
+        localStorage.setItem(TODO_KEY, JSON.stringify(tasks));
+        renderTasks();
+        console.log('✅ Task deleted, remaining:', tasks.length);
+      }
+    }
+
+    function editTask(id) {
+      const task = tasks.find(t => t.id === id);
+      if (task) {
+        const newTitle = prompt('عنوان جدید:', task.title);
+        if (newTitle && newTitle.trim()) {
+          task.title = newTitle.trim();
+          saveTasks();
+          renderTasks();
+        }
+      }
+    }
+
+    function saveTasks() {
+      localStorage.setItem(TODO_KEY, JSON.stringify(tasks));
+    }
+
+    // Make functions global IMMEDIATELY
+    window.addTask = addTask;
+    window.toggleTask = toggleTask;
+    window.deleteTask = deleteTask;
+    window.editTask = editTask;
+
+    console.log('✅ Functions attached to window:', {
+      addTask: typeof window.addTask,
+      deleteTask: typeof window.deleteTask,
+      editTask: typeof window.editTask,
+      toggleTask: typeof window.toggleTask
+    });
+
+    function renderTasks(filter = 'all') {
+      // Reload tasks from localStorage to get latest data
+      tasks = JSON.parse(localStorage.getItem(TODO_KEY) || '[]');
+      
+      console.log('🔄 Rendering tasks, filter:', filter, 'total:', tasks.length);
+      const container = document.getElementById('tasksContainer');
+      
+      if (!container) {
+        console.error('❌ Container not found!');
+        return;
+      }
+      
+      let filteredTasks = tasks;
+
+      // Apply filter
+      if (filter === 'pending') {
+        filteredTasks = tasks.filter(t => !t.completed);
+      } else if (filter === 'completed') {
+        filteredTasks = tasks.filter(t => t.completed);
+      } else if (filter === 'urgent') {
+        filteredTasks = tasks.filter(t => t.priority === 'urgent' && !t.completed);
+      } else if (filter === 'important') {
+        filteredTasks = tasks.filter(t => t.priority === 'important' && !t.completed);
+      }
+
+      if (filteredTasks.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <h3 style="color: #e9e9ef; margin-bottom: 10px;">هیچ کاری وجود ندارد</h3>
+            <p>یک کار جدید اضافه کنید تا شروع کنید!</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filteredTasks.map(task => `
+        <div class="task-card ${task.completed ? 'completed' : ''}" data-id="${task.id}">
+          <div class="task-header">
+            <div class="task-title-text">${task.title}</div>
+            <div class="task-actions">
+              <div class="action-icon" onclick="editTask('${task.id}')" title="ویرایش">✏️</div>
+              <div class="action-icon" onclick="deleteTask('${task.id}')" title="حذف">🗑️</div>
+            </div>
+          </div>
+          ${task.description ? `<div class="task-description">${task.description}</div>` : ''}
+          <div class="task-footer">
+            <div class="task-meta">
+              <span class="task-badge badge-${task.priority}">
+                ${task.priority === 'urgent' ? '🔴 فوری' : 
+                  task.priority === 'important' ? '🟠 مهم' : '🟢 عادی'}
+              </span>
+              <span class="task-badge" style="background: rgba(33, 150, 243, 0.2); color: #2196f3; border: 1px solid #2196f3;">
+                ${getCategoryLabel(task.category)}
+              </span>
+              <span class="task-date">📅 ${new Date(task.createdAt).toLocaleDateString('fa-IR')}</span>
+            </div>
+            <div class="complete-checkbox ${task.completed ? 'checked' : ''}" 
+                 onclick="toggleTask('${task.id}')"></div>
+          </div>
+        </div>
+      `).join('');
+
+      updateSummary();
+    }
+
+    function getCategoryLabel(category) {
+      const labels = {
+        general: 'عمومی',
+        development: '💻 توسعه',
+        design: '🎨 طراحی',
+        marketing: '📢 بازاریابی',
+        meeting: '👥 جلسه',
+        research: '🔬 تحقیق'
+      };
+      return labels[category] || category;
+    }
+
+    function addTask() {
+      const title = document.getElementById('taskTitle').value.trim();
+      const description = document.getElementById('taskDescription').value.trim();
+      const priority = document.getElementById('taskPriority').value;
+      const category = document.getElementById('taskCategory').value;
+
+      if (!title) {
+        alert('⚠️ لطفاً عنوان کار را وارد کنید');
+        return;
+      }
+
+      const task = {
+        id: Date.now().toString(),
+        title,
+        description,
+        priority,
+        category,
+        completed: false,
+        createdAt: new Date().toISOString()
+      };
+
+      tasks.unshift(task);
+      saveTasks();
+      renderTasks();
+
+      // Clear inputs
+      document.getElementById('taskTitle').value = '';
+      document.getElementById('taskDescription').value = '';
+      document.getElementById('taskPriority').value = 'normal';
+      document.getElementById('taskCategory').value = 'general';
+    }
+
+    function toggleTask(id) {
+      const task = tasks.find(t => t.id === id);
+      if (task) {
+        task.completed = !task.completed;
+        saveTasks();
+        renderTasks();
+      }
+    }
+
+    function deleteTask(id) {
+      if (confirm('آیا مطمئن هستید که می‌خواهید این کار را حذف کنید؟')) {
+        tasks = tasks.filter(t => t.id !== id);
+        saveTasks();
+        renderTasks();
+      }
+    }
+
+    function editTask(id) {
+      const task = tasks.find(t => t.id === id);
+      if (task) {
+        const newTitle = prompt('عنوان جدید:', task.title);
+        if (newTitle && newTitle.trim()) {
+          task.title = newTitle.trim();
+          saveTasks();
+          renderTasks();
+        }
+      }
+    }
+
+    function saveTasks() {
+      localStorage.setItem(TODO_KEY, JSON.stringify(tasks));
+    }
+
+    function clearCompleted() {
+      // Get all selected checkboxes
+      const selectedCheckboxes = document.querySelectorAll('.task-select-checkbox:checked');
+      const selectedIds = Array.from(selectedCheckboxes).map(cb => cb.getAttribute('data-task-id'));
+      
+      console.log('🗑️ Selected task IDs (strings):', selectedIds);
+      
+      if (selectedIds.length === 0) {
+        alert('⚠️ لطفاً ابتدا کارهایی که می‌خواهید حذف کنید را انتخاب کنید');
+        return;
+      }
+      
+      if (confirm(`آیا مطمئن هستید که می‌خواهید ${selectedIds.length} کار انتخاب شده را حذف کنید؟`)) {
+        // Reload tasks from localStorage
+        tasks = JSON.parse(localStorage.getItem(TODO_KEY) || '[]');
+        
+        console.log('📋 All tasks before delete:', tasks.map(t => ({id: t.id, title: t.title})));
+        
+        const beforeCount = tasks.length;
+        
+        // Filter out selected tasks - compare both as strings and numbers
+        const remainingTasks = tasks.filter(t => {
+          const taskIdStr = String(t.id);
+          const isSelected = selectedIds.includes(taskIdStr);
+          console.log(`Task ${t.id} (${taskIdStr}): selected=${isSelected}`);
+          return !isSelected;
+        });
+        
+        console.log(`🗑️ Deleted: ${beforeCount - remainingTasks.length}, Remaining: ${remainingTasks.length}`);
+        console.log('📋 Remaining tasks:', remainingTasks.map(t => ({id: t.id, title: t.title})));
+        
+        // Save directly to localStorage
+        localStorage.setItem(TODO_KEY, JSON.stringify(remainingTasks));
+        
+        // Update global tasks variable
+        tasks = remainingTasks;
+        
+        // Re-render
+        renderTasks();
+      }
+    }
+
+    function updateSummary() {
+      const total = tasks.length;
+      const pending = tasks.filter(t => !t.completed).length;
+      const completed = tasks.filter(t => t.completed).length;
+      const urgent = tasks.filter(t => t.priority === 'urgent' && !t.completed).length;
+
+      document.getElementById('totalTasks').textContent = total;
+      document.getElementById('pendingTasks').textContent = pending;
+      document.getElementById('completedTasks').textContent = completed;
+      document.getElementById('urgentTasks').textContent = urgent;
+    }
+
+    // Initialize function
+    function initTodoPage() {
+      console.log('🚀 Initializing To-Do Page...');
+      console.log('📋 Total tasks:', tasks.length);
+      
+      // Filter tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          renderTasks(this.dataset.filter);
+        });
+      });
+
+      // Enter key to add task
+      const titleInput = document.getElementById('taskTitle');
+      if (titleInput) {
+        titleInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            addTask();
+          }
+        });
+      }
+
+      // Clear completed button
+      const clearBtn = document.getElementById('clearCompletedBtn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', clearCompleted);
+      }
+
+      // Initialize
+      renderTasks();
+    }
+
+    // Make functions global for onclick handlers
+    window.editTask = editTask;
+    window.deleteTask = deleteTask;
+    window.toggleTask = toggleTask;
+    window.addTask = addTask;
+
+    // Run initialization
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTodoPage);
+    } else {
+      // Use setTimeout to ensure DOM is ready when loaded via innerHTML
+      setTimeout(initTodoPage, 0);
+    }
+  </script>
+</div>
