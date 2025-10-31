@@ -99,12 +99,12 @@
     }
 
     .section {
-      background: linear-gradient(145deg, #121218 0%, #1a1a28 100%);
+      background: rgba(20,20,30,0.5);
       padding: 50px;
       margin-bottom: 40px;
       border-radius: 20px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      border: 1px solid rgba(212,175,55,0.2);
+      border: 1px solid rgba(212,175,55,0.15);
       position: relative;
       overflow: hidden;
     }
@@ -232,11 +232,13 @@
     }
 
     .requirement-item {
-      background: rgba(212,175,55,0.05);
-      padding: 20px;
+      background: rgba(30,30,40,0.6);
+      padding: 25px;
       border-radius: 12px;
-      border-right: 4px solid #d4af37;
+      border-left: 4px solid #d4af37;
       transition: all 0.3s;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
     }
 
     .requirement-item:hover {
@@ -300,7 +302,7 @@
 
     .info-box {
       background: linear-gradient(135deg, rgba(100,150,255,0.1) 0%, rgba(100,150,255,0.05) 100%);
-      border-right: 4px solid #6496ff;
+      border-left: 4px solid #6496ff;
       padding: 25px;
       margin: 25px 0;
       border-radius: 12px;
@@ -308,7 +310,7 @@
 
     .warning-box {
       background: linear-gradient(135deg, rgba(255,100,100,0.1) 0%, rgba(255,100,100,0.05) 100%);
-      border-right: 4px solid #ff6464;
+      border-left: 4px solid #ff6464;
       padding: 25px;
       margin: 25px 0;
       border-radius: 12px;
@@ -316,7 +318,7 @@
 
     .success-box {
       background: linear-gradient(135deg, rgba(100,255,100,0.1) 0%, rgba(100,255,100,0.05) 100%);
-      border-right: 4px solid #64ff64;
+      border-left: 4px solid #64ff64;
       padding: 25px;
       margin: 25px 0;
       border-radius: 12px;
